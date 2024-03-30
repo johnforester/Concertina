@@ -19,6 +19,7 @@
 		998EB0E22BB7EB8800B836EA /* ConcertinaSynth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998EB0E12BB7EB8800B836EA /* ConcertinaSynth.swift */; };
 		998EB0E62BB7ECF500B836EA /* SoundpipeAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 998EB0E52BB7ECF500B836EA /* SoundpipeAudioKit */; };
 		998EB0E92BB7ED2F00B836EA /* Tonic in Frameworks */ = {isa = PBXBuildFile; productRef = 998EB0E82BB7ED2F00B836EA /* Tonic */; };
+		998EB0EB2BB8808700B836EA /* HandTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998EB0EA2BB8808700B836EA /* HandTrackingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		998EB0D02BB7E76F00B836EA /* ConcertinaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConcertinaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		998EB0D42BB7E76F00B836EA /* ConcertinaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertinaTests.swift; sourceTree = "<group>"; };
 		998EB0E12BB7EB8800B836EA /* ConcertinaSynth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertinaSynth.swift; sourceTree = "<group>"; };
+		998EB0EA2BB8808700B836EA /* HandTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandTrackingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				998EB0C62BB7E76E00B836EA /* Assets.xcassets */,
 				998EB0CB2BB7E76E00B836EA /* Info.plist */,
 				998EB0C82BB7E76E00B836EA /* Preview Content */,
+				998EB0EA2BB8808700B836EA /* HandTrackingView.swift */,
 			);
 			path = Concertina;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				998EB0C12BB7E76D00B836EA /* ContentView.swift in Sources */,
 				998EB0BF2BB7E76D00B836EA /* ConcertinaApp.swift in Sources */,
 				998EB0C32BB7E76D00B836EA /* ImmersiveView.swift in Sources */,
+				998EB0EB2BB8808700B836EA /* HandTrackingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

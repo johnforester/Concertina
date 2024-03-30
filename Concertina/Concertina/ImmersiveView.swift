@@ -10,6 +10,9 @@ import RealityKit
 import RealityKitContent
 import Tonic
 
+
+// TODO maybe delete this
+
 struct ImmersiveView: View {
     @Environment(\.dismissWindow) private var dismissWindow
 
@@ -22,6 +25,8 @@ struct ImmersiveView: View {
                 content.add(immersiveContentEntity)              
 
                 concertina.noteOn(pitch: Pitch(60))
+                
+                
             }
         }
         .onAppear() {
