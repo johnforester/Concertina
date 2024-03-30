@@ -19,12 +19,12 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Model3D(named: "Scene", bundle: realityKitContentBundle)
+            Model3D(named: "ConcertinaFace", bundle: realityKitContentBundle)
                 .padding(.bottom, 50)
 
             Text("Concertina")
 
-            Toggle("Show ImmersiveSpace", isOn: $showImmersiveSpace)
+            Toggle("Show concertina", isOn: $showImmersiveSpace)
                 .font(.title)
                 .frame(width: 360)
                 .padding(24)

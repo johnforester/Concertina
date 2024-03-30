@@ -213,6 +213,7 @@
 				998EB0DE2BB7E96900B836EA /* XCRemoteSwiftPackageReference "AudioKit" */,
 				998EB0E32BB7EC1C00B836EA /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */,
 				998EB0E72BB7ED2F00B836EA /* XCRemoteSwiftPackageReference "Tonic" */,
+				998EB0EC2BB8982500B836EA /* XCRemoteSwiftPackageReference "DunneAudioKit" */,
 			);
 			productRefGroup = 998EB0B82BB7E76D00B836EA /* Products */;
 			projectDirPath = "";
@@ -544,6 +545,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.3.2;
+			};
+		};
+		998EB0EC2BB8982500B836EA /* XCRemoteSwiftPackageReference "DunneAudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/DunneAudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

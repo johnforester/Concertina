@@ -7,44 +7,118 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["Sphere_Left", "Sphere_Right", "GridMaterial"]
-    def Sphere "Sphere_Right" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/GridMaterial/GridMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (0.5, 1.5, -1.5)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-    }
-
-    def Sphere "Sphere_Left" (
-        active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-    )
-    {
-        rel material:binding = </Root/GridMaterial/GridMaterial> (
-            bindMaterialAs = "weakerThanDescendants"
-        )
-        double radius = 0.1
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        float3 xformOp:translate = (-0.5, 1.5, -1.5)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-    }
-
+    reorder nameChildren = ["GridMaterial", "Left_ConcertinaFace", "RIght_ConcertinaFace"]
     def "GridMaterial" (
         active = true
-        prepend references = @Materials/GridMaterial.usda@
+        references = @Materials/GridMaterial.usda@
     )
     {
         float3 xformOp:scale = (1, 1, 1)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def "Left_ConcertinaFace" (
+        active = true
+        customData = {
+            float3 rotationEulerHint = (0, 0, -1.5707964)
+        }
+        references = @ConcertinaFace.usdz@
+    )
+    {
+        quatf xformOp:orient = (0.70710677, 0, 0, -0.70710677)
+        float3 xformOp:scale = (0.01, 0.01, 0.01)
+        float3 xformOp:translate = (-0.35457033, 1, -0.42364183)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        def RealityKitComponent "RigidBody"
+        {
+            uniform token info:id = "RealityKit.RigidBody"
+            bool lockRotationX = 1
+            bool lockRotationY = 1
+            bool lockRotationZ = 1
+            bool lockTranslationY = 1
+            bool lockTranslationZ = 1
+
+            def RealityKitStruct "massFrame"
+            {
+                def RealityKitStruct "m_pose"
+                {
+                }
+            }
+
+            def RealityKitStruct "material"
+            {
+            }
+        }
+
+        def RealityKitComponent "Collider"
+        {
+            uint group = 1
+            uniform token info:id = "RealityKit.Collider"
+            uint mask = 4294967295
+            token type = "Default"
+
+            def RealityKitStruct "Shape"
+            {
+                float3 extent = (23.850649, 10.858131, 21.39328)
+                token shapeType = "Box"
+
+                def RealityKitStruct "pose"
+                {
+                    float3 position = (-0.12807941, 14.540405, 12.330301)
+                }
+            }
+        }
+    }
+
+    def "RIght_ConcertinaFace" (
+        active = true
+        customData = {
+            float3 rotationEulerHint = (0, 0, 1.5707964)
+        }
+        references = @ConcertinaFace.usdz@
+    )
+    {
+        quatf xformOp:orient = (0.70710677, 0, 0, 0.70710677)
+        float3 xformOp:scale = (0.01, 0.01, 0.01)
+        float3 xformOp:translate = (0.2110989, 1, -0.42364183)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "Materials"
+        {
+            over "Concertina_initialShadingGroup"
+            {
+                token outputs:surface.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/surfaceShader.outputs:surface>
+
+                over "surfaceShader"
+                {
+                    color3f inputs:diffuseColor.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/diffuseColor_texture.outputs:rgb>
+                    float inputs:metallic.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/metallic_roughness_texture.outputs:b>
+                    normal3f inputs:normal.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/normal_texture.outputs:rgb>
+                    float inputs:roughness.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/metallic_roughness_texture.outputs:g>
+                }
+
+                over "uvReader_st"
+                {
+                    token inputs:varname.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup.inputs:frame:stPrimvarName>
+                }
+
+                over "normal_texture"
+                {
+                    float2 inputs:st.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/uvReader_st.outputs:result>
+                }
+
+                over "diffuseColor_texture"
+                {
+                    float2 inputs:st.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/uvReader_st.outputs:result>
+                }
+
+                over "metallic_roughness_texture"
+                {
+                    float2 inputs:st.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/uvReader_st.outputs:result>
+                }
+            }
+        }
     }
 }
 
