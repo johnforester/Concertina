@@ -249,7 +249,7 @@ struct HandTrackingView: View {
                 if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
                     content.add(immersiveContentEntity)
 
-                    concertina.noteOn(pitch: Pitch(60))
+                    concertina.noteOn(pitch: 60)
                     
                     if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
                         leftWristModelEntity = leftEntity

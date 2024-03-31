@@ -7,6 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79E41B282BB9150200E1379B /* Concertina.sf2 in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B272BB9150200E1379B /* Concertina.sf2 */; };
+		79E41B3A2BB919E100E1379B /* A-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B292BB919E000E1379B /* A-v2.wav */; };
+		79E41B3B2BB919E100E1379B /* A.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2A2BB919E000E1379B /* A.wav */; };
+		79E41B3C2BB919E100E1379B /* B-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2B2BB919E000E1379B /* B-v2.wav */; };
+		79E41B3D2BB919E100E1379B /* B.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2C2BB919E000E1379B /* B.wav */; };
+		79E41B3E2BB919E100E1379B /* C_v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2D2BB919E000E1379B /* C_v2.wav */; };
+		79E41B3F2BB919E100E1379B /* C.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2E2BB919E000E1379B /* C.wav */; };
+		79E41B402BB919E100E1379B /* D-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2F2BB919E000E1379B /* D-v2.wav */; };
+		79E41B412BB919E100E1379B /* D.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B302BB919E000E1379B /* D.wav */; };
+		79E41B422BB919E100E1379B /* E-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B312BB919E000E1379B /* E-v2.wav */; };
+		79E41B432BB919E100E1379B /* E.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B322BB919E000E1379B /* E.wav */; };
+		79E41B442BB919E100E1379B /* G-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B332BB919E000E1379B /* G-v2.wav */; };
+		79E41B452BB919E100E1379B /* G.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B342BB919E000E1379B /* G.wav */; };
+		79E41B462BB919E100E1379B /* G2-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B352BB919E000E1379B /* G2-v2.wav */; };
+		79E41B472BB919E100E1379B /* G2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B362BB919E000E1379B /* G2.wav */; };
+		79E41B482BB919E100E1379B /* Gb-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B372BB919E000E1379B /* Gb-v2.wav */; };
+		79E41B492BB919E100E1379B /* Gb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B382BB919E000E1379B /* Gb.wav */; };
 		99777A2F2BB8EBBA00271672 /* Accordian Back F A#3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 997779962BB8EBBA00271672 /* Accordian Back F A#3.wav */; };
 		99777A302BB8EBBA00271672 /* Accordian Back F A#4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 997779972BB8EBBA00271672 /* Accordian Back F A#4.wav */; };
 		99777A312BB8EBBA00271672 /* Accordian Back F A3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 997779982BB8EBBA00271672 /* Accordian Back F A3.wav */; };
@@ -186,6 +203,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		79E41B242BB90E9400E1379B /* Concertina.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Concertina.sf2; sourceTree = "<group>"; };
+		79E41B272BB9150200E1379B /* Concertina.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = Concertina.sf2; path = ../../../../../Downloads/Concertina.sf2; sourceTree = "<group>"; };
+		79E41B292BB919E000E1379B /* A-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "A-v2.wav"; sourceTree = "<group>"; };
+		79E41B2A2BB919E000E1379B /* A.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = A.wav; sourceTree = "<group>"; };
+		79E41B2B2BB919E000E1379B /* B-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "B-v2.wav"; sourceTree = "<group>"; };
+		79E41B2C2BB919E000E1379B /* B.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = B.wav; sourceTree = "<group>"; };
+		79E41B2D2BB919E000E1379B /* C_v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = C_v2.wav; sourceTree = "<group>"; };
+		79E41B2E2BB919E000E1379B /* C.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = C.wav; sourceTree = "<group>"; };
+		79E41B2F2BB919E000E1379B /* D-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "D-v2.wav"; sourceTree = "<group>"; };
+		79E41B302BB919E000E1379B /* D.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = D.wav; sourceTree = "<group>"; };
+		79E41B312BB919E000E1379B /* E-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "E-v2.wav"; sourceTree = "<group>"; };
+		79E41B322BB919E000E1379B /* E.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = E.wav; sourceTree = "<group>"; };
+		79E41B332BB919E000E1379B /* G-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "G-v2.wav"; sourceTree = "<group>"; };
+		79E41B342BB919E000E1379B /* G.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = G.wav; sourceTree = "<group>"; };
+		79E41B352BB919E000E1379B /* G2-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "G2-v2.wav"; sourceTree = "<group>"; };
+		79E41B362BB919E000E1379B /* G2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = G2.wav; sourceTree = "<group>"; };
+		79E41B372BB919E000E1379B /* Gb-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Gb-v2.wav"; sourceTree = "<group>"; };
+		79E41B382BB919E000E1379B /* Gb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Gb.wav; sourceTree = "<group>"; };
 		997779962BB8EBBA00271672 /* Accordian Back F A#3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Accordian Back F A#3.wav"; sourceTree = "<group>"; };
 		997779972BB8EBBA00271672 /* Accordian Back F A#4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Accordian Back F A#4.wav"; sourceTree = "<group>"; };
 		997779982BB8EBBA00271672 /* Accordian Back F A3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Accordian Back F A3.wav"; sourceTree = "<group>"; };
@@ -376,9 +411,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		79E41B392BB919E000E1379B /* ConcertinaNotes */ = {
+			isa = PBXGroup;
+			children = (
+				79E41B292BB919E000E1379B /* A-v2.wav */,
+				79E41B2A2BB919E000E1379B /* A.wav */,
+				79E41B2B2BB919E000E1379B /* B-v2.wav */,
+				79E41B2C2BB919E000E1379B /* B.wav */,
+				79E41B2D2BB919E000E1379B /* C_v2.wav */,
+				79E41B2E2BB919E000E1379B /* C.wav */,
+				79E41B2F2BB919E000E1379B /* D-v2.wav */,
+				79E41B302BB919E000E1379B /* D.wav */,
+				79E41B312BB919E000E1379B /* E-v2.wav */,
+				79E41B322BB919E000E1379B /* E.wav */,
+				79E41B332BB919E000E1379B /* G-v2.wav */,
+				79E41B342BB919E000E1379B /* G.wav */,
+				79E41B352BB919E000E1379B /* G2-v2.wav */,
+				79E41B362BB919E000E1379B /* G2.wav */,
+				79E41B372BB919E000E1379B /* Gb-v2.wav */,
+				79E41B382BB919E000E1379B /* Gb.wav */,
+			);
+			path = ConcertinaNotes;
+			sourceTree = "<group>";
+		};
 		99777A2E2BB8EBBA00271672 /* Mum's Accordion Samples */ = {
 			isa = PBXGroup;
 			children = (
+				79E41B242BB90E9400E1379B /* Concertina.sf2 */,
 				997779962BB8EBBA00271672 /* Accordian Back F A#3.wav */,
 				997779972BB8EBBA00271672 /* Accordian Back F A#4.wav */,
 				997779982BB8EBBA00271672 /* Accordian Back F A3.wav */,
@@ -559,6 +618,8 @@
 			isa = PBXGroup;
 			children = (
 				99777A2E2BB8EBBA00271672 /* Mum's Accordion Samples */,
+				79E41B392BB919E000E1379B /* ConcertinaNotes */,
+				79E41B272BB9150200E1379B /* Concertina.sf2 */,
 				998EB0BE2BB7E76D00B836EA /* ConcertinaApp.swift */,
 				998EB0C02BB7E76D00B836EA /* ContentView.swift */,
 				998EB0C22BB7E76D00B836EA /* ImmersiveView.swift */,
@@ -699,6 +760,7 @@
 			files = (
 				99777A8B2BB8EBBA00271672 /* Accordian Front F E4.wav in Resources */,
 				99777A3D2BB8EBBA00271672 /* Accordian Back F D4.wav in Resources */,
+				79E41B442BB919E100E1379B /* G-v2.wav in Resources */,
 				99777A522BB8EBBA00271672 /* Accordian Back P C5.wav in Resources */,
 				99777A4A2BB8EBBA00271672 /* Accordian Back P A3.wav in Resources */,
 				99777A612BB8EBBA00271672 /* Accordian Back RT A#3.wav in Resources */,
@@ -715,9 +777,11 @@
 				99777A5A2BB8EBBA00271672 /* Accordian Back P F#4.wav in Resources */,
 				99777A6B2BB8EBBA00271672 /* Accordian Back RT C5.wav in Resources */,
 				99777A532BB8EBBA00271672 /* Accordian Back P D#3.wav in Resources */,
+				79E41B3B2BB919E100E1379B /* A.wav in Resources */,
 				99777A6D2BB8EBBA00271672 /* Accordian Back RT D#4.wav in Resources */,
 				99777AAA2BB8EBBA00271672 /* Accordian Front P G#4.wav in Resources */,
 				99777A5C2BB8EBBA00271672 /* Accordian Back P F4.wav in Resources */,
+				79E41B282BB9150200E1379B /* Concertina.sf2 in Resources */,
 				99777AC22BB8EBBA00271672 /* Accordian Front RT G#3.wav in Resources */,
 				99777AA12BB8EBBA00271672 /* Accordian Front P D3.wav in Resources */,
 				99777AC32BB8EBBA00271672 /* Accordian Front RT G#4.wav in Resources */,
@@ -738,6 +802,7 @@
 				99777A762BB8EBBA00271672 /* Accordian Back RT G#3.wav in Resources */,
 				99777A352BB8EBBA00271672 /* Accordian Back F C#3.wav in Resources */,
 				99777ABD2BB8EBBA00271672 /* Accordian Front RT E4.wav in Resources */,
+				79E41B482BB919E100E1379B /* Gb-v2.wav in Resources */,
 				99777A4D2BB8EBBA00271672 /* Accordian Back P B4.wav in Resources */,
 				99777A442BB8EBBA00271672 /* Accordian Back F G#3.wav in Resources */,
 				99777A892BB8EBBA00271672 /* Accordian Front F D4.wav in Resources */,
@@ -757,9 +822,12 @@
 				99777ABE2BB8EBBA00271672 /* Accordian Front RT F#3.wav in Resources */,
 				99777A622BB8EBBA00271672 /* Accordian Back RT A#4.wav in Resources */,
 				99777A7E2BB8EBBA00271672 /* Accordian Front F A4.wav in Resources */,
+				79E41B432BB919E100E1379B /* E.wav in Resources */,
 				99777A9B2BB8EBBA00271672 /* Accordian Front P C#4.wav in Resources */,
+				79E41B3E2BB919E100E1379B /* C_v2.wav in Resources */,
 				99777A5D2BB8EBBA00271672 /* Accordian Back P G#3.wav in Resources */,
 				99777ABA2BB8EBBA00271672 /* Accordian Front RT D3.wav in Resources */,
+				79E41B3F2BB919E100E1379B /* C.wav in Resources */,
 				99777A7B2BB8EBBA00271672 /* Accordian Front F A#3.wav in Resources */,
 				99777A7A2BB8EBBA00271672 /* Accordian Back RT G4.wav in Resources */,
 				99777ABF2BB8EBBA00271672 /* Accordian Front RT F#4.wav in Resources */,
@@ -769,6 +837,7 @@
 				99777AB02BB8EBBA00271672 /* Accordian Front RT A4.wav in Resources */,
 				99777ABB2BB8EBBA00271672 /* Accordian Front RT D4.wav in Resources */,
 				99777A852BB8EBBA00271672 /* Accordian Front F C5.wav in Resources */,
+				79E41B422BB919E100E1379B /* E-v2.wav in Resources */,
 				99777A4E2BB8EBBA00271672 /* Accordian Back P C#3.wav in Resources */,
 				99777AC12BB8EBBA00271672 /* Accordian Front RT F4.wav in Resources */,
 				99777A5B2BB8EBBA00271672 /* Accordian Back P F3.wav in Resources */,
@@ -782,11 +851,14 @@
 				99777A832BB8EBBA00271672 /* Accordian Front F C3.wav in Resources */,
 				99777A842BB8EBBA00271672 /* Accordian Front F C4.wav in Resources */,
 				99777A9F2BB8EBBA00271672 /* Accordian Front P D#3.wav in Resources */,
+				79E41B462BB919E100E1379B /* G2-v2.wav in Resources */,
 				99777A342BB8EBBA00271672 /* Accordian Back F B4.wav in Resources */,
 				99777A502BB8EBBA00271672 /* Accordian Back P C3.wav in Resources */,
 				99777A912BB8EBBA00271672 /* Accordian Front F G#4.wav in Resources */,
 				99777A512BB8EBBA00271672 /* Accordian Back P C4.wav in Resources */,
+				79E41B3C2BB919E100E1379B /* B-v2.wav in Resources */,
 				99777A472BB8EBBA00271672 /* Accordian Back F G4.wav in Resources */,
+				79E41B3A2BB919E100E1379B /* A-v2.wav in Resources */,
 				998EB0CA2BB7E76E00B836EA /* Preview Assets.xcassets in Resources */,
 				99777A4B2BB8EBBA00271672 /* Accordian Back P A4.wav in Resources */,
 				99777A432BB8EBBA00271672 /* Accordian Back F F4.wav in Resources */,
@@ -804,13 +876,16 @@
 				99777A2F2BB8EBBA00271672 /* Accordian Back F A#3.wav in Resources */,
 				99777A382BB8EBBA00271672 /* Accordian Back F C4.wav in Resources */,
 				99777A562BB8EBBA00271672 /* Accordian Back P D4.wav in Resources */,
+				79E41B412BB919E100E1379B /* D.wav in Resources */,
 				99777A792BB8EBBA00271672 /* Accordian Back RT G3.wav in Resources */,
 				99777AAD2BB8EBBA00271672 /* Accordian Front RT A#3.wav in Resources */,
 				99777A3B2BB8EBBA00271672 /* Accordian Back F D#4.wav in Resources */,
 				99777A6F2BB8EBBA00271672 /* Accordian Back RT D4.wav in Resources */,
+				79E41B492BB919E100E1379B /* Gb.wav in Resources */,
 				99777A412BB8EBBA00271672 /* Accordian Back F F#4.wav in Resources */,
 				99777AAE2BB8EBBA00271672 /* Accordian Front RT A#4.wav in Resources */,
 				99777A302BB8EBBA00271672 /* Accordian Back F A#4.wav in Resources */,
+				79E41B472BB919E100E1379B /* G2.wav in Resources */,
 				99777A312BB8EBBA00271672 /* Accordian Back F A3.wav in Resources */,
 				99777ABC2BB8EBBA00271672 /* Accordian Front RT E3.wav in Resources */,
 				99777A632BB8EBBA00271672 /* Accordian Back RT A3.wav in Resources */,
@@ -824,11 +899,14 @@
 				99777AA42BB8EBBA00271672 /* Accordian Front P E4.wav in Resources */,
 				99777A4F2BB8EBBA00271672 /* Accordian Back P C#4.wav in Resources */,
 				99777A542BB8EBBA00271672 /* Accordian Back P D#4.wav in Resources */,
+				79E41B3D2BB919E100E1379B /* B.wav in Resources */,
 				99777A702BB8EBBA00271672 /* Accordian Back RT E3.wav in Resources */,
+				79E41B402BB919E100E1379B /* D-v2.wav in Resources */,
 				99777A582BB8EBBA00271672 /* Accordian Back P E4.wav in Resources */,
 				99777A952BB8EBBA00271672 /* Accordian Front P A#4.wav in Resources */,
 				99777A942BB8EBBA00271672 /* Accordian Front P A#3.wav in Resources */,
 				99777AAF2BB8EBBA00271672 /* Accordian Front RT A3.wav in Resources */,
+				79E41B452BB919E100E1379B /* G.wav in Resources */,
 				99777A8D2BB8EBBA00271672 /* Accordian Front F F#4.wav in Resources */,
 				99777AA82BB8EBBA00271672 /* Accordian Front P F4.wav in Resources */,
 				99777A922BB8EBBA00271672 /* Accordian Front F G3.wav in Resources */,

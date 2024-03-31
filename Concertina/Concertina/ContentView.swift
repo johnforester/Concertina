@@ -30,6 +30,14 @@ struct ContentView: View {
                 .frame(width: 360)
                 .padding(24)
                 .glassBackgroundEffect()
+            
+            Button("Play test sound") {
+                synth.playTest()
+            }
+            
+            Button("Stop test sound") {
+                synth.stopTest()
+            }
         }
         .padding()
         .onChange(of: showImmersiveSpace) { _, newValue in
