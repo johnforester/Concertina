@@ -7,7 +7,7 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["GridMaterial", "Left_ConcertinaFace", "RIght_ConcertinaFace"]
+    reorder nameChildren = ["GridMaterial", "Left_ConcertinaFace", "Right_ConcertinaFace"]
     def "GridMaterial" (
         active = true
         references = @Materials/GridMaterial.usda@
@@ -26,8 +26,8 @@ def Xform "Root"
     )
     {
         quatf xformOp:orient = (0.70710677, 0, 0, -0.70710677)
-        float3 xformOp:scale = (0.01, 0.01, 0.01)
-        float3 xformOp:translate = (-0.35457033, 1, -0.42364183)
+        float3 xformOp:scale = (0.001, 0.001, 0.001)
+        float3 xformOp:translate = (0, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def RealityKitComponent "RigidBody"
@@ -71,7 +71,7 @@ def Xform "Root"
         }
     }
 
-    def "RIght_ConcertinaFace" (
+    def "Right_ConcertinaFace" (
         active = true
         customData = {
             float3 rotationEulerHint = (0, 0, 1.5707964)
@@ -80,42 +80,42 @@ def Xform "Root"
     )
     {
         quatf xformOp:orient = (0.70710677, 0, 0, 0.70710677)
-        float3 xformOp:scale = (0.01, 0.01, 0.01)
-        float3 xformOp:translate = (0.2110989, 1, -0.42364183)
+        float3 xformOp:scale = (0.001, 0.001, 0.001)
+        float3 xformOp:translate = (0, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         over "Materials"
         {
             over "Concertina_initialShadingGroup"
             {
-                token outputs:surface.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/surfaceShader.outputs:surface>
+                token outputs:surface.connect = </Root/Right_ConcertinaFace/Materials/Concertina_initialShadingGroup/surfaceShader.outputs:surface>
 
                 over "surfaceShader"
                 {
-                    color3f inputs:diffuseColor.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/diffuseColor_texture.outputs:rgb>
-                    float inputs:metallic.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/metallic_roughness_texture.outputs:b>
-                    normal3f inputs:normal.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/normal_texture.outputs:rgb>
-                    float inputs:roughness.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/metallic_roughness_texture.outputs:g>
+                    color3f inputs:diffuseColor.connect = </Root/Right_ConcertinaFace/Materials/Concertina_initialShadingGroup/diffuseColor_texture.outputs:rgb>
+                    float inputs:metallic.connect = </Root/Right_ConcertinaFace/Materials/Concertina_initialShadingGroup/metallic_roughness_texture.outputs:b>
+                    normal3f inputs:normal.connect = </Root/Right_ConcertinaFace/Materials/Concertina_initialShadingGroup/normal_texture.outputs:rgb>
+                    float inputs:roughness.connect = </Root/Right_ConcertinaFace/Materials/Concertina_initialShadingGroup/metallic_roughness_texture.outputs:g>
                 }
 
                 over "uvReader_st"
                 {
-                    token inputs:varname.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup.inputs:frame:stPrimvarName>
+                    token inputs:varname.connect = </Root/Right_ConcertinaFace/Materials/Concertina_initialShadingGroup.inputs:frame:stPrimvarName>
                 }
 
                 over "normal_texture"
                 {
-                    float2 inputs:st.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/uvReader_st.outputs:result>
+                    float2 inputs:st.connect = </Root/Right_ConcertinaFace/Materials/Concertina_initialShadingGroup/uvReader_st.outputs:result>
                 }
 
                 over "diffuseColor_texture"
                 {
-                    float2 inputs:st.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/uvReader_st.outputs:result>
+                    float2 inputs:st.connect = </Root/Right_ConcertinaFace/Materials/Concertina_initialShadingGroup/uvReader_st.outputs:result>
                 }
 
                 over "metallic_roughness_texture"
                 {
-                    float2 inputs:st.connect = </Root/RIght_ConcertinaFace/Materials/Concertina_initialShadingGroup/uvReader_st.outputs:result>
+                    float2 inputs:st.connect = </Root/Right_ConcertinaFace/Materials/Concertina_initialShadingGroup/uvReader_st.outputs:result>
                 }
             }
         }

@@ -18,10 +18,9 @@ struct HandTrackingView: View {
     var handTrackingProvider = HandTrackingProvider()
     @State var latestHandTracking: HandsUpdates = .init(left: nil, right: nil)
     
-   /* @State var leftWristModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])*/
     @State var leftWristModelEntity: Entity?
+    @State var rightWristModelEntity: Entity?
+    
     @State var leftThumbKnuckleModelEntity = ModelEntity(
         mesh: .generateSphere(radius: 0.015),
         materials: [SimpleMaterial(color: .white, isMetallic: true)])
@@ -101,9 +100,6 @@ struct HandTrackingView: View {
         mesh: .generateBox(width: 0.5, height: 0.1, depth: 0.15),
         materials: [SimpleMaterial(color: .white, isMetallic: true)])
     
-    @State var rightWristModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
     @State var rightThumbKnuckleModelEntity = ModelEntity(
         mesh: .generateSphere(radius: 0.015),
         materials: [SimpleMaterial(color: .white, isMetallic: true)])
@@ -217,7 +213,6 @@ struct HandTrackingView: View {
         content.add(leftForearmWristModelEntity)
         content.add(leftForearmArmModelEntity)
         
-        content.add(rightWristModelEntity)
         content.add(rightThumbKnuckleModelEntity)
         content.add(rightThumbIntermediateBaseModelEntity)
         content.add(rightThumbIntermediateTipModelEntity)
@@ -261,6 +256,12 @@ struct HandTrackingView: View {
                     } else {
                         print("Left face not found")
                     }
+                    
+                    if let rightEntity = immersiveContentEntity.findEntity(named: "Right_ConcertinaFace") {
+                        rightWristModelEntity = rightEntity
+                    } else {
+                        print("Right face not found")
+                    }
                 }
             } update: { content in
                 computeTransformHeartTracking()
@@ -300,8 +301,21 @@ struct HandTrackingView: View {
         }
         
         if let leftWristModelEntity = leftWristModelEntity {
+            // TODO optimize when scaling is done?
             leftWristModelEntity.transform = getTransform(leftHandAnchor, .wrist, leftWristModelEntity.transform)
+            leftWristModelEntity.scale = SIMD3(0.01, 0.01, 0.01)
         }
+        
+        if let rightWristModelEntity = rightWristModelEntity {
+            rightWristModelEntity.transform = getTransform(rightHandAnchor, .wrist, rightWristModelEntity.transform)
+            // TODO optimize when scaling is done?
+            rightWristModelEntity.scale = SIMD3(0.01, 0.01, 0.01)
+            
+            rightWristModelEntity.transform.rotation *= simd_quatf(angle: .pi,
+                                                       axis: SIMD3<Float>(1, 0, 0))
+            //rightWristModelEntity.transform.rotation = rotatedVector
+        }
+        
         leftThumbKnuckleModelEntity.transform = getTransform(leftHandAnchor, .thumbKnuckle, leftThumbKnuckleModelEntity.transform)
         leftThumbIntermediateBaseModelEntity.transform = getTransform(leftHandAnchor, .thumbIntermediateBase, leftThumbIntermediateBaseModelEntity.transform)
         leftThumbIntermediateTipModelEntity.transform = getTransform(leftHandAnchor, .thumbIntermediateTip, leftThumbIntermediateTipModelEntity.transform)
@@ -329,7 +343,6 @@ struct HandTrackingView: View {
         leftForearmWristModelEntity.transform = getTransform(leftHandAnchor, .forearmWrist,leftForearmWristModelEntity.transform)
         leftForearmArmModelEntity.transform = getTransform(leftHandAnchor, .forearmArm,leftForearmArmModelEntity.transform)
         
-        rightWristModelEntity.transform = getTransform(rightHandAnchor, .wrist,rightWristModelEntity.transform)
         rightThumbKnuckleModelEntity.transform = getTransform(rightHandAnchor, .thumbKnuckle,rightThumbKnuckleModelEntity.transform)
         rightThumbIntermediateBaseModelEntity.transform = getTransform(rightHandAnchor, .thumbIntermediateBase,rightThumbIntermediateBaseModelEntity.transform)
         rightThumbIntermediateTipModelEntity.transform = getTransform(rightHandAnchor, .thumbIntermediateTip,rightThumbIntermediateTipModelEntity.transform)
