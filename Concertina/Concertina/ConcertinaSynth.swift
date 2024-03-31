@@ -81,7 +81,7 @@ class ConcertinaSynth: ObservableObject {
     }
 
     func stopTest() {
-        sampler.stop(noteNumber: 69)
+        sampler.stop(noteNumber: 79)
     }
 
     init() {
