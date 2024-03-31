@@ -12,6 +12,7 @@ import RealityKitContent
 import Tonic
 import Combine
 import AudioKit
+import AVFAudio
 
 struct HandTrackingView: View {
     @StateObject var concertina = ConcertinaSynth()
@@ -19,7 +20,8 @@ struct HandTrackingView: View {
     @State var sceneUpdateSubscription : Cancellable? = nil
     let session = ARKitSession()
     var handTrackingProvider = HandTrackingProvider()
-    
+    @State var domsSong: AVAudioPlayer?
+
     @State var spheres: [Entity] = []
     let totalSpheres = 10
     
@@ -350,7 +352,16 @@ struct HandTrackingView: View {
                             let distance = distance(leftWristModelEntity.position, rightWristModelEntity.position)
                             
                             if distance > 1.1 {
-                                print("distance: \(distance)")
+                                // Easter egg
+                                let path = Bundle.main.path(forResource: "Nearer_My_God_to_Thee_reverb_room", ofType:"m4a")!
+                                let url = URL(fileURLWithPath: path)
+
+                                do {
+                                    domsSong = try AVAudioPlayer(contentsOf: url)
+                                    domsSong?.play()
+                                } catch {
+                                    print("couldn't load Dom's song")
+                                }
                             }
                             
                             updateFingerPositions()
