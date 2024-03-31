@@ -7,13 +7,13 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["GridMaterial", "Sphere"]
+    reorder nameChildren = ["CompleteConcertina", "GridMaterial", "Sphere"]
     rel material:binding = None (
         bindMaterialAs = "weakerThanDescendants"
     )
 
     def Sphere "Sphere" (
-        active = true
+        active = false
         prepend apiSchemas = ["MaterialBindingAPI"]
     )
     {
@@ -53,6 +53,19 @@ def Xform "Root"
     )
     {
         float3 xformOp:scale = (1, 1, 1)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def "CompleteConcertina" (
+        active = true
+        customData = {
+            float3 rotationEulerHint = (0, 2.4434607, 0)
+        }
+        prepend references = @CompleteConcertina.usdz@
+    )
+    {
+        quatf xformOp:orient = (0.34202015, 0, 0.9396926, 0)
+        float3 xformOp:scale = (0.008, 0.008, 0.008)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
     }
 }

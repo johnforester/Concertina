@@ -25,7 +25,7 @@ struct ContentView: View {
 
             Text("Concertina")
 
-            Toggle("Show concertina", isOn: $showImmersiveSpace)
+            Toggle("Play concertina", isOn: $showImmersiveSpace)
                 .font(.title)
                 .frame(width: 360)
                 .padding(24)
