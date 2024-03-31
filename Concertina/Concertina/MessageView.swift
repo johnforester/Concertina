@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct FloatingMessageView: View {
+    @State var isShowing: Bool
+    
     var body: some View {
         VStack {
             Text("Welcome to the Concertina Simulator!\n Try closing one finger at a time and then move your hands towards each other.")

@@ -346,14 +346,11 @@ struct HandTrackingView: View {
                 } update: { content in
                     computeTransformHeartTracking()
                 }
+                FloatingMessageView(isShowing: showFloatingMessage)
+                    .transition(.scale.combined(with: .opacity))
             }.onAppear {
                 handTracking()
             }
-        }
-        // Floating message overlay
-        if showFloatingMessage {
-            FloatingMessageView(isShowing: $showFloatingMessage)
-                .transition(.scale.combined(with: .opacity))
         }
     }
     
