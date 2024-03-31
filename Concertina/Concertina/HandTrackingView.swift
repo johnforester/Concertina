@@ -390,10 +390,10 @@ struct HandTrackingView: View {
     func updateFingerPositions() {
         for i in 0..<fingerStatuses.count {
             
-            if fingerStatuses[i].tip == leftLittleFingerTipModelEntity {
-                print("little distance: \(distance(fingerStatuses[i].tip.position, fingerStatuses[i].knuckle.position))")
-            }
-            
+//            if fingerStatuses[i].tip == leftLittleFingerTipModelEntity {
+//                print("little distance: \(distance(fingerStatuses[i].tip.position, fingerStatuses[i].knuckle.position))")
+//            }
+//            
             if distance(fingerStatuses[i].tip.position, fingerStatuses[i].knuckle.position) < fingerStatuses[i].distanceToTrigger {
                 if !fingerStatuses[i].isPlaying {
                     concertina.noteOn(note: fingerStatuses[i].note)
