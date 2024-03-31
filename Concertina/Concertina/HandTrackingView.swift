@@ -11,6 +11,7 @@ import ARKit
 import RealityKitContent
 import Tonic
 import Combine
+import AudioKit
 
 struct HandTrackingView: View {
     @StateObject var concertina = ConcertinaSynth()
@@ -188,7 +189,14 @@ struct HandTrackingView: View {
         mesh: .generateBox(width: 0.5, height: 0.1, depth: 0.15),
         materials: [SimpleMaterial(color: .white, isMetallic: true)])
     
+    @State var fingerStatuses = [FingerStatus]()
     
+    struct FingerStatus {
+        var tip: Entity
+        var knuckle: Entity
+        var isPlaying: Bool
+        var note: MIDINoteNumber
+    }
     
     struct HandsUpdates {
         var left: HandAnchor?
@@ -196,6 +204,17 @@ struct HandTrackingView: View {
     }
     
     fileprivate func addHandModelEntities(_ content: RealityViewContent) {
+        fingerStatuses = [
+            FingerStatus(tip: leftIndexFingerTipModelEntity,
+                         knuckle: leftIndexFingerKnuckleModelEntity,
+                         isPlaying: false,
+                         note: 60),
+            FingerStatus(tip: leftMiddleFingerTipModelEntity,
+                         knuckle: leftMiddleFingerKnuckleModelEntity,
+                         isPlaying: false,
+                         note: 70)
+            
+        ]
         // content.add(leftWristModelEntity)
         content.add(leftThumbKnuckleModelEntity)
         content.add(leftThumbIntermediateBaseModelEntity)
@@ -260,7 +279,7 @@ struct HandTrackingView: View {
                 if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
                     content.add(immersiveContentEntity)
                     
-                    concertina.noteOn(note: 60) // TEST NOTE
+                  //  concertina.noteOn(note: 60) // TEST NOTE
                     
                     if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
                         leftWristModelEntity = leftEntity
@@ -284,8 +303,6 @@ struct HandTrackingView: View {
                         let sphere = ModelEntity(mesh: mesh, materials: [material])
                         content.add(sphere)
                         spheres.append(sphere)
-                        // Assuming you have a scene, add the sphere to it
-                        // scene.anchors.append(sphere)
                     }
                     
                     sceneUpdateSubscription = content.subscribe(to: SceneEvents.Update.self) {event in
@@ -293,20 +310,17 @@ struct HandTrackingView: View {
                         
                         if let leftWristModelEntity = leftWristModelEntity,
                            let rightWristModelEntity = rightWristModelEntity {
-                            if areEntitiesMovingTowardsEachOther(entity1: leftWristModelEntity, entity2: rightWristModelEntity, deltaTime: event.deltaTime) {
-                                //  if !concertina.isPlaying {
-                                //  concertina.noteOn(note: 64)
-                                
-                                if distance(leftIndexFingerTipModelEntity.position, leftIndexFingerKnuckleModelEntity.position) < 0.05 {
-                                    let note = UInt8.random(in: 1..<127)
-                                    concertina.noteOn(note: note)
-                                    
-                                }
-                                //   }
-                                /*print("YES MOVING TOWARDS")*/ } else {
-                                    // print("NOT MOVING TOWARDS")
-                                    // concertina.isPlaying = false
-                                }
+                            /*  if areEntitiesMovingTowardsEachOther(entity1: leftWristModelEntity, entity2: rightWristModelEntity, deltaTime: event.deltaTime) {*/
+                            //  if !concertina.isPlaying {
+                            //  concertina.noteOn(note: 64)
+                            
+                            updateFingerPositions()
+                            
+                            //   }
+                            /*print("YES MOVING TOWARDS") } else {
+                             // print("NOT MOVING TOWARDS")
+                             // concertina.isPlaying = false
+                             //  }*/
                             
                             updateSpheresPosition(startEntity: leftWristModelEntity, endEntity: rightWristModelEntity)
                             leftLastPosition = leftWristModelEntity.position
@@ -325,11 +339,28 @@ struct HandTrackingView: View {
                      print(lastUpdateTime)
                      */
                 }
+                concertina.isPlaying = true
             } update: { content in
                 computeTransformHeartTracking()
             }
         }.onAppear {
             handTracking()
+        }
+    }
+    
+    func updateFingerPositions() {
+        for i in 0..<fingerStatuses.count {
+            if distance(fingerStatuses[i].tip.position, fingerStatuses[i].knuckle.position) < 0.05 {
+                if !fingerStatuses[i].isPlaying {
+                    concertina.noteOn(note: fingerStatuses[i].note)
+                    fingerStatuses[i].isPlaying = true
+                } else {
+                    // continue playing note
+                }
+            } else if fingerStatuses[i].isPlaying == true {
+                concertina.noteOff(note: fingerStatuses[i].note)
+                fingerStatuses[i].isPlaying = false
+            }
         }
     }
     
