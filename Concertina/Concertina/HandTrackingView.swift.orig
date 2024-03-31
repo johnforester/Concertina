@@ -208,11 +208,11 @@ struct HandTrackingView: View {
             FingerStatus(tip: leftIndexFingerTipModelEntity,
                          knuckle: leftIndexFingerKnuckleModelEntity,
                          isPlaying: false,
-                         note: 69),
+                         note: 60),
             FingerStatus(tip: leftMiddleFingerTipModelEntity,
                          knuckle: leftMiddleFingerKnuckleModelEntity,
                          isPlaying: false,
-                         note: 71)
+                         note: 70)
             
         ]
         // content.add(leftWristModelEntity)
@@ -278,8 +278,13 @@ struct HandTrackingView: View {
                 addHandModelEntities(content)
                 if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
                     content.add(immersiveContentEntity)
+<<<<<<< HEAD
                     
                   //  concertina.noteOn(note: 60) // TEST NOTE
+=======
+
+                    concertina.noteOn(pitch: 60)
+>>>>>>> alexisdev
                     
                     if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
                         leftWristModelEntity = leftEntity
