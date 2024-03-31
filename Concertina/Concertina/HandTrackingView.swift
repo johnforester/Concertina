@@ -196,6 +196,7 @@ struct HandTrackingView: View {
         var knuckle: Entity
         var isPlaying: Bool
         var note: MIDINoteNumber
+        var distanceToTrigger: Float
     }
     
     struct HandsUpdates {
@@ -208,35 +209,43 @@ struct HandTrackingView: View {
             FingerStatus(tip: leftIndexFingerTipModelEntity,
                          knuckle: leftIndexFingerKnuckleModelEntity,
                          isPlaying: false,
-                         note: 67),
+                         note: 67,
+                         distanceToTrigger: 0.05),
             FingerStatus(tip: leftMiddleFingerTipModelEntity,
                          knuckle: leftMiddleFingerKnuckleModelEntity,
                          isPlaying: false,
-                         note: 69),
+                         note: 69,
+                         distanceToTrigger: 0.05),
             FingerStatus(tip: leftRingFingerTipModelEntity,
                          knuckle: leftRingFingerKnuckleModelEntity,
                          isPlaying: false,
-                         note: 71),
+                         note: 71,
+                         distanceToTrigger: 0.07),
             FingerStatus(tip: leftLittleFingerTipModelEntity,
-                         knuckle: leftLittleFingerKnuckleModelEntity,
+                         knuckle: leftForearmWristModelEntity,
                          isPlaying: false,
-                         note: 72),
+                         note: 72,
+                         distanceToTrigger: 0.07),
             FingerStatus(tip: rightIndexFingerTipModelEntity,
                          knuckle: rightIndexFingerKnuckleModelEntity,
                          isPlaying: false,
-                         note: 74),
+                         note: 74,
+                         distanceToTrigger: 0.05),
             FingerStatus(tip: rightMiddleFingerTipModelEntity,
                          knuckle: rightMiddleFingerKnuckleModelEntity,
                          isPlaying: false,
-                         note: 76),
+                         note: 76,
+                         distanceToTrigger: 0.05),
             FingerStatus(tip: rightRingFingerTipModelEntity,
                          knuckle: rightRingFingerKnuckleModelEntity,
                          isPlaying: false,
-                         note: 78),
+                         note: 78,
+                         distanceToTrigger: 0.07),
             FingerStatus(tip: rightLittleFingerTipModelEntity,
-                         knuckle: rightLittleFingerKnuckleModelEntity,
+                         knuckle: rightForearmWristModelEntity,
                          isPlaying: false,
-                         note: 79),
+                         note: 79,
+                         distanceToTrigger: 0.07)
             
         ]
         // content.add(leftWristModelEntity)
@@ -338,6 +347,12 @@ struct HandTrackingView: View {
                             //  if !concertina.isPlaying {
                             //  concertina.noteOn(note: 64)
                             
+                            let distance = distance(leftWristModelEntity.position, rightWristModelEntity.position)
+                            
+                            if distance > 1.1 {
+                                print("distance: \(distance)")
+                            }
+                            
                             updateFingerPositions()
                             
                             //   }
@@ -374,7 +389,12 @@ struct HandTrackingView: View {
     
     func updateFingerPositions() {
         for i in 0..<fingerStatuses.count {
-            if distance(fingerStatuses[i].tip.position, fingerStatuses[i].knuckle.position) < 0.05 {
+            
+            if fingerStatuses[i].tip == leftLittleFingerTipModelEntity {
+                print("little distance: \(distance(fingerStatuses[i].tip.position, fingerStatuses[i].knuckle.position))")
+            }
+            
+            if distance(fingerStatuses[i].tip.position, fingerStatuses[i].knuckle.position) < fingerStatuses[i].distanceToTrigger {
                 if !fingerStatuses[i].isPlaying {
                     concertina.noteOn(note: fingerStatuses[i].note)
                     fingerStatuses[i].isPlaying = true
