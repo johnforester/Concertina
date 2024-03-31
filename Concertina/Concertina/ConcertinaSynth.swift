@@ -104,8 +104,6 @@ class ConcertinaSynth: ObservableObject {
 
     }
 
-
-    
     func loadWAVs() {
         for (audioName, midiNoteNumber, frequency) in wavFilesAndMIDINotes {
             loadSingleWAV(audioName: audioName, midiNoteNumber: midiNoteNumber, frequency: frequency)
