@@ -1,0 +1,683 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		79913A182BB9D7E4003958DE /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79913A172BB9D7E4003958DE /* MessageView.swift */; };
+		79E41B3A2BB919E100E1379B /* A-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B292BB919E000E1379B /* A-v2.wav */; };
+		79E41B3B2BB919E100E1379B /* A.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2A2BB919E000E1379B /* A.wav */; };
+		79E41B3C2BB919E100E1379B /* B-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2B2BB919E000E1379B /* B-v2.wav */; };
+		79E41B3D2BB919E100E1379B /* B.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2C2BB919E000E1379B /* B.wav */; };
+		79E41B3E2BB919E100E1379B /* C_v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2D2BB919E000E1379B /* C_v2.wav */; };
+		79E41B3F2BB919E100E1379B /* C.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2E2BB919E000E1379B /* C.wav */; };
+		79E41B402BB919E100E1379B /* D-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2F2BB919E000E1379B /* D-v2.wav */; };
+		79E41B412BB919E100E1379B /* D.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B302BB919E000E1379B /* D.wav */; };
+		79E41B422BB919E100E1379B /* E-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B312BB919E000E1379B /* E-v2.wav */; };
+		79E41B432BB919E100E1379B /* E.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B322BB919E000E1379B /* E.wav */; };
+		79E41B442BB919E100E1379B /* G-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B332BB919E000E1379B /* G-v2.wav */; };
+		79E41B452BB919E100E1379B /* G.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B342BB919E000E1379B /* G.wav */; };
+		79E41B462BB919E100E1379B /* G2-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B352BB919E000E1379B /* G2-v2.wav */; };
+		79E41B472BB919E100E1379B /* G2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B362BB919E000E1379B /* G2.wav */; };
+		79E41B482BB919E100E1379B /* Gb-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B372BB919E000E1379B /* Gb-v2.wav */; };
+		79E41B492BB919E100E1379B /* Gb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B382BB919E000E1379B /* Gb.wav */; };
+		99777ACB2BB8EDC300271672 /* DunneAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 99777ACA2BB8EDC300271672 /* DunneAudioKit */; };
+		99777ACD2BB9EC1500271672 /* Nearer_My_God_to_Thee_reverb_room.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 99777ACC2BB9EC1400271672 /* Nearer_My_God_to_Thee_reverb_room.m4a */; };
+		998EB0BD2BB7E76D00B836EA /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 998EB0BC2BB7E76D00B836EA /* RealityKitContent */; };
+		998EB0BF2BB7E76D00B836EA /* ConcertinaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998EB0BE2BB7E76D00B836EA /* ConcertinaApp.swift */; };
+		998EB0C12BB7E76D00B836EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998EB0C02BB7E76D00B836EA /* ContentView.swift */; };
+		998EB0C32BB7E76D00B836EA /* ImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998EB0C22BB7E76D00B836EA /* ImmersiveView.swift */; };
+		998EB0C52BB7E76D00B836EA /* ImageBasedLighting.skybox in Resources */ = {isa = PBXBuildFile; fileRef = 998EB0C42BB7E76D00B836EA /* ImageBasedLighting.skybox */; };
+		998EB0C72BB7E76E00B836EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 998EB0C62BB7E76E00B836EA /* Assets.xcassets */; };
+		998EB0CA2BB7E76E00B836EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 998EB0C92BB7E76E00B836EA /* Preview Assets.xcassets */; };
+		998EB0D52BB7E76F00B836EA /* ConcertinaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998EB0D42BB7E76F00B836EA /* ConcertinaTests.swift */; };
+		998EB0E02BB7E96900B836EA /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 998EB0DF2BB7E96900B836EA /* AudioKit */; };
+		998EB0E22BB7EB8800B836EA /* ConcertinaSynth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998EB0E12BB7EB8800B836EA /* ConcertinaSynth.swift */; };
+		998EB0E62BB7ECF500B836EA /* SoundpipeAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 998EB0E52BB7ECF500B836EA /* SoundpipeAudioKit */; };
+		998EB0E92BB7ED2F00B836EA /* Tonic in Frameworks */ = {isa = PBXBuildFile; productRef = 998EB0E82BB7ED2F00B836EA /* Tonic */; };
+		998EB0EB2BB8808700B836EA /* HandTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998EB0EA2BB8808700B836EA /* HandTrackingView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		998EB0D12BB7E76F00B836EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 998EB0AF2BB7E76D00B836EA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 998EB0B62BB7E76D00B836EA;
+			remoteInfo = Concertina;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+<<<<<<< HEAD
+=======
+		79913A172BB9D7E4003958DE /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+>>>>>>> alexisdev
+		79E41B292BB919E000E1379B /* A-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "A-v2.wav"; sourceTree = "<group>"; };
+		79E41B2A2BB919E000E1379B /* A.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = A.wav; sourceTree = "<group>"; };
+		79E41B2B2BB919E000E1379B /* B-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "B-v2.wav"; sourceTree = "<group>"; };
+		79E41B2C2BB919E000E1379B /* B.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = B.wav; sourceTree = "<group>"; };
+		79E41B2D2BB919E000E1379B /* C_v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = C_v2.wav; sourceTree = "<group>"; };
+		79E41B2E2BB919E000E1379B /* C.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = C.wav; sourceTree = "<group>"; };
+		79E41B2F2BB919E000E1379B /* D-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "D-v2.wav"; sourceTree = "<group>"; };
+		79E41B302BB919E000E1379B /* D.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = D.wav; sourceTree = "<group>"; };
+		79E41B312BB919E000E1379B /* E-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "E-v2.wav"; sourceTree = "<group>"; };
+		79E41B322BB919E000E1379B /* E.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = E.wav; sourceTree = "<group>"; };
+		79E41B332BB919E000E1379B /* G-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "G-v2.wav"; sourceTree = "<group>"; };
+		79E41B342BB919E000E1379B /* G.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = G.wav; sourceTree = "<group>"; };
+		79E41B352BB919E000E1379B /* G2-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "G2-v2.wav"; sourceTree = "<group>"; };
+		79E41B362BB919E000E1379B /* G2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = G2.wav; sourceTree = "<group>"; };
+		79E41B372BB919E000E1379B /* Gb-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Gb-v2.wav"; sourceTree = "<group>"; };
+		79E41B382BB919E000E1379B /* Gb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Gb.wav; sourceTree = "<group>"; };
+<<<<<<< HEAD
+		99777ACC2BB9EC1400271672 /* Nearer_My_God_to_Thee_reverb_room.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nearer_My_God_to_Thee_reverb_room.m4a; sourceTree = "<group>"; };
+=======
+>>>>>>> alexisdev
+		998EB0B72BB7E76D00B836EA /* Concertina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Concertina.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		998EB0BB2BB7E76D00B836EA /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
+		998EB0BE2BB7E76D00B836EA /* ConcertinaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertinaApp.swift; sourceTree = "<group>"; };
+		998EB0C02BB7E76D00B836EA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		998EB0C22BB7E76D00B836EA /* ImmersiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveView.swift; sourceTree = "<group>"; };
+		998EB0C42BB7E76D00B836EA /* ImageBasedLighting.skybox */ = {isa = PBXFileReference; lastKnownFileType = file.skybox; path = ImageBasedLighting.skybox; sourceTree = "<group>"; };
+		998EB0C62BB7E76E00B836EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		998EB0C92BB7E76E00B836EA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		998EB0CB2BB7E76E00B836EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		998EB0D02BB7E76F00B836EA /* ConcertinaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConcertinaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		998EB0D42BB7E76F00B836EA /* ConcertinaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertinaTests.swift; sourceTree = "<group>"; };
+		998EB0E12BB7EB8800B836EA /* ConcertinaSynth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertinaSynth.swift; sourceTree = "<group>"; };
+		998EB0EA2BB8808700B836EA /* HandTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandTrackingView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		998EB0B42BB7E76D00B836EA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				998EB0E02BB7E96900B836EA /* AudioKit in Frameworks */,
+				99777ACB2BB8EDC300271672 /* DunneAudioKit in Frameworks */,
+				998EB0BD2BB7E76D00B836EA /* RealityKitContent in Frameworks */,
+				998EB0E92BB7ED2F00B836EA /* Tonic in Frameworks */,
+				998EB0E62BB7ECF500B836EA /* SoundpipeAudioKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		998EB0CD2BB7E76F00B836EA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		79E41B392BB919E000E1379B /* ConcertinaNotes */ = {
+			isa = PBXGroup;
+			children = (
+				79E41B292BB919E000E1379B /* A-v2.wav */,
+				79E41B2A2BB919E000E1379B /* A.wav */,
+				79E41B2B2BB919E000E1379B /* B-v2.wav */,
+				79E41B2C2BB919E000E1379B /* B.wav */,
+				79E41B2D2BB919E000E1379B /* C_v2.wav */,
+				79E41B2E2BB919E000E1379B /* C.wav */,
+				79E41B2F2BB919E000E1379B /* D-v2.wav */,
+				79E41B302BB919E000E1379B /* D.wav */,
+				79E41B312BB919E000E1379B /* E-v2.wav */,
+				79E41B322BB919E000E1379B /* E.wav */,
+				79E41B332BB919E000E1379B /* G-v2.wav */,
+				79E41B342BB919E000E1379B /* G.wav */,
+				79E41B352BB919E000E1379B /* G2-v2.wav */,
+				79E41B362BB919E000E1379B /* G2.wav */,
+				79E41B372BB919E000E1379B /* Gb-v2.wav */,
+				79E41B382BB919E000E1379B /* Gb.wav */,
+			);
+			path = ConcertinaNotes;
+			sourceTree = "<group>";
+		};
+		998EB0AE2BB7E76D00B836EA = {
+			isa = PBXGroup;
+			children = (
+				998EB0B92BB7E76D00B836EA /* Concertina */,
+				998EB0BA2BB7E76D00B836EA /* Packages */,
+				998EB0D32BB7E76F00B836EA /* ConcertinaTests */,
+				998EB0B82BB7E76D00B836EA /* Products */,
+				998EB0E42BB7ECF500B836EA /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		998EB0B82BB7E76D00B836EA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				998EB0B72BB7E76D00B836EA /* Concertina.app */,
+				998EB0D02BB7E76F00B836EA /* ConcertinaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		998EB0B92BB7E76D00B836EA /* Concertina */ = {
+			isa = PBXGroup;
+			children = (
+<<<<<<< HEAD
+				99777ACC2BB9EC1400271672 /* Nearer_My_God_to_Thee_reverb_room.m4a */,
+=======
+>>>>>>> alexisdev
+				79E41B392BB919E000E1379B /* ConcertinaNotes */,
+				998EB0BE2BB7E76D00B836EA /* ConcertinaApp.swift */,
+				998EB0C02BB7E76D00B836EA /* ContentView.swift */,
+				998EB0C22BB7E76D00B836EA /* ImmersiveView.swift */,
+				998EB0E12BB7EB8800B836EA /* ConcertinaSynth.swift */,
+				998EB0EA2BB8808700B836EA /* HandTrackingView.swift */,
+				79913A172BB9D7E4003958DE /* MessageView.swift */,
+				998EB0C42BB7E76D00B836EA /* ImageBasedLighting.skybox */,
+				998EB0C62BB7E76E00B836EA /* Assets.xcassets */,
+				998EB0CB2BB7E76E00B836EA /* Info.plist */,
+				998EB0C82BB7E76E00B836EA /* Preview Content */,
+			);
+			path = Concertina;
+			sourceTree = "<group>";
+		};
+		998EB0BA2BB7E76D00B836EA /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				998EB0BB2BB7E76D00B836EA /* RealityKitContent */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		998EB0C82BB7E76E00B836EA /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				998EB0C92BB7E76E00B836EA /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		998EB0D32BB7E76F00B836EA /* ConcertinaTests */ = {
+			isa = PBXGroup;
+			children = (
+				998EB0D42BB7E76F00B836EA /* ConcertinaTests.swift */,
+			);
+			path = ConcertinaTests;
+			sourceTree = "<group>";
+		};
+		998EB0E42BB7ECF500B836EA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		998EB0B62BB7E76D00B836EA /* Concertina */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 998EB0D82BB7E76F00B836EA /* Build configuration list for PBXNativeTarget "Concertina" */;
+			buildPhases = (
+				998EB0B32BB7E76D00B836EA /* Sources */,
+				998EB0B42BB7E76D00B836EA /* Frameworks */,
+				998EB0B52BB7E76D00B836EA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Concertina;
+			packageProductDependencies = (
+				998EB0BC2BB7E76D00B836EA /* RealityKitContent */,
+				998EB0DF2BB7E96900B836EA /* AudioKit */,
+				998EB0E52BB7ECF500B836EA /* SoundpipeAudioKit */,
+				998EB0E82BB7ED2F00B836EA /* Tonic */,
+				99777ACA2BB8EDC300271672 /* DunneAudioKit */,
+			);
+			productName = Concertina;
+			productReference = 998EB0B72BB7E76D00B836EA /* Concertina.app */;
+			productType = "com.apple.product-type.application";
+		};
+		998EB0CF2BB7E76F00B836EA /* ConcertinaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 998EB0DB2BB7E76F00B836EA /* Build configuration list for PBXNativeTarget "ConcertinaTests" */;
+			buildPhases = (
+				998EB0CC2BB7E76F00B836EA /* Sources */,
+				998EB0CD2BB7E76F00B836EA /* Frameworks */,
+				998EB0CE2BB7E76F00B836EA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				998EB0D22BB7E76F00B836EA /* PBXTargetDependency */,
+			);
+			name = ConcertinaTests;
+			productName = ConcertinaTests;
+			productReference = 998EB0D02BB7E76F00B836EA /* ConcertinaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		998EB0AF2BB7E76D00B836EA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					998EB0B62BB7E76D00B836EA = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					998EB0CF2BB7E76F00B836EA = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = 998EB0B62BB7E76D00B836EA;
+					};
+				};
+			};
+			buildConfigurationList = 998EB0B22BB7E76D00B836EA /* Build configuration list for PBXProject "Concertina" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 998EB0AE2BB7E76D00B836EA;
+			packageReferences = (
+				998EB0DE2BB7E96900B836EA /* XCRemoteSwiftPackageReference "AudioKit" */,
+				998EB0E32BB7EC1C00B836EA /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */,
+				998EB0E72BB7ED2F00B836EA /* XCRemoteSwiftPackageReference "Tonic" */,
+				99777AC92BB8EDC300271672 /* XCRemoteSwiftPackageReference "DunneAudioKit" */,
+			);
+			productRefGroup = 998EB0B82BB7E76D00B836EA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				998EB0B62BB7E76D00B836EA /* Concertina */,
+				998EB0CF2BB7E76F00B836EA /* ConcertinaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		998EB0B52BB7E76D00B836EA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79E41B442BB919E100E1379B /* G-v2.wav in Resources */,
+<<<<<<< HEAD
+				99777ACD2BB9EC1500271672 /* Nearer_My_God_to_Thee_reverb_room.m4a in Resources */,
+=======
+>>>>>>> alexisdev
+				79E41B3B2BB919E100E1379B /* A.wav in Resources */,
+				79E41B482BB919E100E1379B /* Gb-v2.wav in Resources */,
+				998EB0C72BB7E76E00B836EA /* Assets.xcassets in Resources */,
+				79E41B432BB919E100E1379B /* E.wav in Resources */,
+				79E41B3E2BB919E100E1379B /* C_v2.wav in Resources */,
+				79E41B3F2BB919E100E1379B /* C.wav in Resources */,
+				79E41B422BB919E100E1379B /* E-v2.wav in Resources */,
+				79E41B462BB919E100E1379B /* G2-v2.wav in Resources */,
+				79E41B3C2BB919E100E1379B /* B-v2.wav in Resources */,
+				79E41B3A2BB919E100E1379B /* A-v2.wav in Resources */,
+				998EB0CA2BB7E76E00B836EA /* Preview Assets.xcassets in Resources */,
+				79E41B412BB919E100E1379B /* D.wav in Resources */,
+				79E41B492BB919E100E1379B /* Gb.wav in Resources */,
+				79E41B472BB919E100E1379B /* G2.wav in Resources */,
+				998EB0C52BB7E76D00B836EA /* ImageBasedLighting.skybox in Resources */,
+				79E41B3D2BB919E100E1379B /* B.wav in Resources */,
+				79E41B402BB919E100E1379B /* D-v2.wav in Resources */,
+				79E41B452BB919E100E1379B /* G.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		998EB0CE2BB7E76F00B836EA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		998EB0B32BB7E76D00B836EA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79913A182BB9D7E4003958DE /* MessageView.swift in Sources */,
+				998EB0E22BB7EB8800B836EA /* ConcertinaSynth.swift in Sources */,
+				998EB0C12BB7E76D00B836EA /* ContentView.swift in Sources */,
+				998EB0BF2BB7E76D00B836EA /* ConcertinaApp.swift in Sources */,
+				998EB0C32BB7E76D00B836EA /* ImmersiveView.swift in Sources */,
+				998EB0EB2BB8808700B836EA /* HandTrackingView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		998EB0CC2BB7E76F00B836EA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				998EB0D52BB7E76F00B836EA /* ConcertinaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		998EB0D22BB7E76F00B836EA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 998EB0B62BB7E76D00B836EA /* Concertina */;
+			targetProxy = 998EB0D12BB7E76F00B836EA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		998EB0D62BB7E76F00B836EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = xros;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				XROS_DEPLOYMENT_TARGET = 1.1;
+			};
+			name = Debug;
+		};
+		998EB0D72BB7E76F00B836EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = xros;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+				XROS_DEPLOYMENT_TARGET = 1.1;
+			};
+			name = Release;
+		};
+		998EB0D92BB7E76F00B836EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Concertina/Preview Content\"";
+				DEVELOPMENT_TEAM = 668C4Y7A9L;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.forester.Concertina;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+			};
+			name = Debug;
+		};
+		998EB0DA2BB7E76F00B836EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Concertina/Preview Content\"";
+				DEVELOPMENT_TEAM = 668C4Y7A9L;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.forester.Concertina;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+			};
+			name = Release;
+		};
+		998EB0DC2BB7E76F00B836EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 668C4Y7A9L;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.forester.Concertina.ConcertinaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Concertina.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Concertina";
+				XROS_DEPLOYMENT_TARGET = 1.1;
+			};
+			name = Debug;
+		};
+		998EB0DD2BB7E76F00B836EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 668C4Y7A9L;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.forester.Concertina.ConcertinaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Concertina.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Concertina";
+				XROS_DEPLOYMENT_TARGET = 1.1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		998EB0B22BB7E76D00B836EA /* Build configuration list for PBXProject "Concertina" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				998EB0D62BB7E76F00B836EA /* Debug */,
+				998EB0D72BB7E76F00B836EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		998EB0D82BB7E76F00B836EA /* Build configuration list for PBXNativeTarget "Concertina" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				998EB0D92BB7E76F00B836EA /* Debug */,
+				998EB0DA2BB7E76F00B836EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		998EB0DB2BB7E76F00B836EA /* Build configuration list for PBXNativeTarget "ConcertinaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				998EB0DC2BB7E76F00B836EA /* Debug */,
+				998EB0DD2BB7E76F00B836EA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		99777AC92BB8EDC300271672 /* XCRemoteSwiftPackageReference "DunneAudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/DunneAudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.1;
+			};
+		};
+		998EB0DE2BB7E96900B836EA /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.3;
+			};
+		};
+		998EB0E32BB7EC1C00B836EA /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/SoundpipeAudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.1;
+			};
+		};
+		998EB0E72BB7ED2F00B836EA /* XCRemoteSwiftPackageReference "Tonic" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/Tonic.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		99777ACA2BB8EDC300271672 /* DunneAudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99777AC92BB8EDC300271672 /* XCRemoteSwiftPackageReference "DunneAudioKit" */;
+			productName = DunneAudioKit;
+		};
+		998EB0BC2BB7E76D00B836EA /* RealityKitContent */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityKitContent;
+		};
+		998EB0DF2BB7E96900B836EA /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 998EB0DE2BB7E96900B836EA /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+		998EB0E52BB7ECF500B836EA /* SoundpipeAudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 998EB0E32BB7EC1C00B836EA /* XCRemoteSwiftPackageReference "SoundpipeAudioKit" */;
+			productName = SoundpipeAudioKit;
+		};
+		998EB0E82BB7ED2F00B836EA /* Tonic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 998EB0E72BB7ED2F00B836EA /* XCRemoteSwiftPackageReference "Tonic" */;
+			productName = Tonic;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 998EB0AF2BB7E76D00B836EA /* Project object */;
+}

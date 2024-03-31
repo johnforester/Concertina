@@ -33,163 +33,59 @@ struct HandTrackingView: View {
     @State var leftLastPosition = SIMD3<Float>(0,0,0)
     @State var rightLastPosition = SIMD3<Float>(0,0,0)
     
-    @State var leftThumbKnuckleModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftThumbIntermediateBaseModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftThumbIntermediateTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftThumbTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftIndexFingerMetacarpalModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftIndexFingerKnuckleModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftIndexFingerIntermediateBaseModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftIndexFingerIntermediateTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftIndexFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftMiddleFingerMetacarpalModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftMiddleFingerKnuckleModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftMiddleFingerIntermediateBaseModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftMiddleFingerIntermediateTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftMiddleFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftRingFingerMetacarpalModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftRingFingerKnuckleModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftRingFingerIntermediateBaseModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftRingFingerIntermediateTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftRingFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftLittleFingerMetacarpalModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftLittleFingerKnuckleModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftLittleFingerIntermediateBaseModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftLittleFingerIntermediateTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftLittleFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftForearmWristModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var leftForearmArmModelEntity = ModelEntity(
-        mesh: .generateBox(width: 0.5, height: 0.1, depth: 0.15),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
+    @State var leftThumbKnuckleModelEntity = Entity()
+    @State var leftThumbIntermediateBaseModelEntity = Entity()
+    @State var leftThumbIntermediateTipModelEntity = Entity()
+    @State var leftThumbTipModelEntity = Entity()
+    @State var leftIndexFingerMetacarpalModelEntity = Entity()
+    @State var leftIndexFingerKnuckleModelEntity = Entity()
+    @State var leftIndexFingerIntermediateBaseModelEntity = Entity()
+    @State var leftIndexFingerIntermediateTipModelEntity = Entity()
+    @State var leftIndexFingerTipModelEntity = Entity()
+    @State var leftMiddleFingerMetacarpalModelEntity = Entity()
+    @State var leftMiddleFingerKnuckleModelEntity = Entity()
+    @State var leftMiddleFingerIntermediateBaseModelEntity = Entity()
+    @State var leftMiddleFingerIntermediateTipModelEntity = Entity()
+    @State var leftMiddleFingerTipModelEntity = Entity()
+    @State var leftRingFingerMetacarpalModelEntity = Entity()
+    @State var leftRingFingerKnuckleModelEntity = Entity()
+    @State var leftRingFingerIntermediateBaseModelEntity = Entity()
+    @State var leftRingFingerIntermediateTipModelEntity = Entity()
+    @State var leftRingFingerTipModelEntity = Entity()
+    @State var leftLittleFingerMetacarpalModelEntity = Entity()
+    @State var leftLittleFingerKnuckleModelEntity = Entity()
+    @State var leftLittleFingerIntermediateBaseModelEntity = Entity()
+    @State var leftLittleFingerIntermediateTipModelEntity = Entity()
+    @State var leftLittleFingerTipModelEntity = Entity()
+    @State var leftForearmWristModelEntity = Entity()
+    @State var leftForearmArmModelEntity = Entity()
     
-    @State var rightThumbKnuckleModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightThumbIntermediateBaseModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightThumbIntermediateTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightThumbTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightIndexFingerMetacarpalModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightIndexFingerKnuckleModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightIndexFingerIntermediateBaseModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightIndexFingerIntermediateTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightIndexFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightMiddleFingerMetacarpalModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightMiddleFingerKnuckleModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightMiddleFingerIntermediateBaseModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightMiddleFingerIntermediateTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightMiddleFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightRingFingerMetacarpalModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightRingFingerKnuckleModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightRingFingerIntermediateBaseModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightRingFingerIntermediateTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightRingFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightLittleFingerMetacarpalModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightLittleFingerKnuckleModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightLittleFingerIntermediateBaseModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightLittleFingerIntermediateTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightLittleFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightForearmWristModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.015),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
-    @State var rightForearmArmModelEntity = ModelEntity(
-        mesh: .generateBox(width: 0.5, height: 0.1, depth: 0.15),
-        materials: [SimpleMaterial(color: .white, isMetallic: true)])
+    @State var rightThumbKnuckleModelEntity = Entity()
+    @State var rightThumbIntermediateBaseModelEntity = Entity()
+    @State var rightThumbIntermediateTipModelEntity = Entity()
+    @State var rightThumbTipModelEntity = Entity()
+    @State var rightIndexFingerMetacarpalModelEntity = Entity()
+    @State var rightIndexFingerKnuckleModelEntity = Entity()
+    @State var rightIndexFingerIntermediateBaseModelEntity = Entity()
+    @State var rightIndexFingerIntermediateTipModelEntity = Entity()
+    @State var rightIndexFingerTipModelEntity = Entity()
+    @State var rightMiddleFingerMetacarpalModelEntity = Entity()
+    @State var rightMiddleFingerKnuckleModelEntity = Entity()
+    @State var rightMiddleFingerIntermediateBaseModelEntity = Entity()
+    @State var rightMiddleFingerIntermediateTipModelEntity = Entity()
+    @State var rightMiddleFingerTipModelEntity = Entity()
+    @State var rightRingFingerMetacarpalModelEntity = Entity()
+    @State var rightRingFingerKnuckleModelEntity = Entity()
+    @State var rightRingFingerIntermediateBaseModelEntity = Entity()
+    @State var rightRingFingerIntermediateTipModelEntity = Entity()
+    @State var rightRingFingerTipModelEntity = Entity()
+    @State var rightLittleFingerMetacarpalModelEntity = Entity()
+    @State var rightLittleFingerKnuckleModelEntity = Entity()
+    @State var rightLittleFingerIntermediateBaseModelEntity = Entity()
+    @State var rightLittleFingerIntermediateTipModelEntity = Entity()
+    @State var rightLittleFingerTipModelEntity = Entity()
+    @State var rightForearmWristModelEntity = Entity()
+    @State var rightForearmArmModelEntity = Entity()
     
     @State var fingerStatuses = [FingerStatus]()
     

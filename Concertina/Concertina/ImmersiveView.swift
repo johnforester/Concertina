@@ -22,11 +22,7 @@ struct ImmersiveView: View {
         RealityView { content in
             // Add the initial RealityKit content
             if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
-                content.add(immersiveContentEntity)              
-
-                concertina.noteOn(note: 60)
-                
-                
+                content.add(immersiveContentEntity)               
             }
         }
         .onAppear() {
