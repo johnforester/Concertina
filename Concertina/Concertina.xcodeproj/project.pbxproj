@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		797AB6992BBA012C008A4389 /* ConcertinaButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AB6982BBA012C008A4389 /* ConcertinaButtonsView.swift */; };
+		797AB69B2BBA03A8008A4389 /* FingersStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797AB69A2BBA03A8008A4389 /* FingersStatus.swift */; };
 		79913A182BB9D7E4003958DE /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79913A172BB9D7E4003958DE /* MessageView.swift */; };
 		79E41B3A2BB919E100E1379B /* A-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B292BB919E000E1379B /* A-v2.wav */; };
 		79E41B3B2BB919E100E1379B /* A.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2A2BB919E000E1379B /* A.wav */; };
@@ -51,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		797AB6982BBA012C008A4389 /* ConcertinaButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertinaButtonsView.swift; sourceTree = "<group>"; };
+		797AB69A2BBA03A8008A4389 /* FingersStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FingersStatus.swift; sourceTree = "<group>"; };
 		79913A172BB9D7E4003958DE /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		79E41B292BB919E000E1379B /* A-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "A-v2.wav"; sourceTree = "<group>"; };
 		79E41B2A2BB919E000E1379B /* A.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = A.wav; sourceTree = "<group>"; };
@@ -156,8 +160,10 @@
 				998EB0BE2BB7E76D00B836EA /* ConcertinaApp.swift */,
 				998EB0C02BB7E76D00B836EA /* ContentView.swift */,
 				998EB0C22BB7E76D00B836EA /* ImmersiveView.swift */,
+				797AB6982BBA012C008A4389 /* ConcertinaButtonsView.swift */,
 				998EB0E12BB7EB8800B836EA /* ConcertinaSynth.swift */,
 				998EB0EA2BB8808700B836EA /* HandTrackingView.swift */,
+				797AB69A2BBA03A8008A4389 /* FingersStatus.swift */,
 				79913A172BB9D7E4003958DE /* MessageView.swift */,
 				998EB0C42BB7E76D00B836EA /* ImageBasedLighting.skybox */,
 				998EB0C62BB7E76E00B836EA /* Assets.xcassets */,
@@ -328,8 +334,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				797AB69B2BBA03A8008A4389 /* FingersStatus.swift in Sources */,
 				79913A182BB9D7E4003958DE /* MessageView.swift in Sources */,
 				998EB0E22BB7EB8800B836EA /* ConcertinaSynth.swift in Sources */,
+				797AB6992BBA012C008A4389 /* ConcertinaButtonsView.swift in Sources */,
 				998EB0C12BB7E76D00B836EA /* ContentView.swift in Sources */,
 				998EB0BF2BB7E76D00B836EA /* ConcertinaApp.swift in Sources */,
 				998EB0C32BB7E76D00B836EA /* ImmersiveView.swift in Sources */,
@@ -483,7 +491,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Concertina/Preview Content\"";
-				DEVELOPMENT_TEAM = 668C4Y7A9L;
+				DEVELOPMENT_TEAM = BMMT26W5BJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
@@ -509,7 +517,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Concertina/Preview Content\"";
-				DEVELOPMENT_TEAM = 668C4Y7A9L;
+				DEVELOPMENT_TEAM = BMMT26W5BJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
