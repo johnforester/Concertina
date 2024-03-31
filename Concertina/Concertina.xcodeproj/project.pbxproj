@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		79E41B282BB9150200E1379B /* Concertina.sf2 in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B272BB9150200E1379B /* Concertina.sf2 */; };
 		79E41B3A2BB919E100E1379B /* A-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B292BB919E000E1379B /* A-v2.wav */; };
 		79E41B3B2BB919E100E1379B /* A.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2A2BB919E000E1379B /* A.wav */; };
 		79E41B3C2BB919E100E1379B /* B-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2B2BB919E000E1379B /* B-v2.wav */; };
@@ -204,7 +203,6 @@
 
 /* Begin PBXFileReference section */
 		79E41B242BB90E9400E1379B /* Concertina.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Concertina.sf2; sourceTree = "<group>"; };
-		79E41B272BB9150200E1379B /* Concertina.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = Concertina.sf2; path = ../../../../../Downloads/Concertina.sf2; sourceTree = "<group>"; };
 		79E41B292BB919E000E1379B /* A-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "A-v2.wav"; sourceTree = "<group>"; };
 		79E41B2A2BB919E000E1379B /* A.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = A.wav; sourceTree = "<group>"; };
 		79E41B2B2BB919E000E1379B /* B-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "B-v2.wav"; sourceTree = "<group>"; };
@@ -619,7 +617,6 @@
 			children = (
 				99777A2E2BB8EBBA00271672 /* Mum's Accordion Samples */,
 				79E41B392BB919E000E1379B /* ConcertinaNotes */,
-				79E41B272BB9150200E1379B /* Concertina.sf2 */,
 				998EB0BE2BB7E76D00B836EA /* ConcertinaApp.swift */,
 				998EB0C02BB7E76D00B836EA /* ContentView.swift */,
 				998EB0C22BB7E76D00B836EA /* ImmersiveView.swift */,
@@ -781,7 +778,6 @@
 				99777A6D2BB8EBBA00271672 /* Accordian Back RT D#4.wav in Resources */,
 				99777AAA2BB8EBBA00271672 /* Accordian Front P G#4.wav in Resources */,
 				99777A5C2BB8EBBA00271672 /* Accordian Back P F4.wav in Resources */,
-				79E41B282BB9150200E1379B /* Concertina.sf2 in Resources */,
 				99777AC22BB8EBBA00271672 /* Accordian Front RT G#3.wav in Resources */,
 				99777AA12BB8EBBA00271672 /* Accordian Front P D3.wav in Resources */,
 				99777AC32BB8EBBA00271672 /* Accordian Front RT G#4.wav in Resources */,
