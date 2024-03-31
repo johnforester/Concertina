@@ -14,11 +14,14 @@ import Combine
 
 struct HandTrackingView: View {
     @StateObject var concertina = ConcertinaSynth()
-
+    
     @State var sceneUpdateSubscription : Cancellable? = nil
     let session = ARKitSession()
     var handTrackingProvider = HandTrackingProvider()
-
+    
+    @State var spheres: [Entity] = []
+    let totalSpheres = 10
+    
     @State var latestHandTracking: HandsUpdates = .init(left: nil, right: nil)
     
     @State var leftWristModelEntity: Entity?
@@ -185,13 +188,15 @@ struct HandTrackingView: View {
         mesh: .generateBox(width: 0.5, height: 0.1, depth: 0.15),
         materials: [SimpleMaterial(color: .white, isMetallic: true)])
     
+    
+    
     struct HandsUpdates {
         var left: HandAnchor?
         var right: HandAnchor?
     }
     
     fileprivate func addHandModelEntities(_ content: RealityViewContent) {
-       // content.add(leftWristModelEntity)
+        // content.add(leftWristModelEntity)
         content.add(leftThumbKnuckleModelEntity)
         content.add(leftThumbIntermediateBaseModelEntity)
         content.add(leftThumbIntermediateTipModelEntity)
@@ -254,7 +259,7 @@ struct HandTrackingView: View {
                 addHandModelEntities(content)
                 if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
                     content.add(immersiveContentEntity)
-
+                    
                     concertina.noteOn(note: 60) // TEST NOTE
                     
                     if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
@@ -273,43 +278,52 @@ struct HandTrackingView: View {
                         print("Right face not found")
                     }
                     
+                    for _ in 0..<totalSpheres {
+                        let mesh = MeshResource.generateSphere(radius: 0.05)
+                        let material = SimpleMaterial(color: .darkGray, isMetallic: false)
+                        let sphere = ModelEntity(mesh: mesh, materials: [material])
+                        content.add(sphere)
+                        spheres.append(sphere)
+                        // Assuming you have a scene, add the sphere to it
+                        // scene.anchors.append(sphere)
+                    }
+                    
                     sceneUpdateSubscription = content.subscribe(to: SceneEvents.Update.self) {event in
                         
                         
                         if let leftWristModelEntity = leftWristModelEntity,
                            let rightWristModelEntity = rightWristModelEntity {
                             if areEntitiesMovingTowardsEachOther(entity1: leftWristModelEntity, entity2: rightWristModelEntity, deltaTime: event.deltaTime) {
-                              //  if !concertina.isPlaying {
-                                  //  concertina.noteOn(note: 64)
+                                //  if !concertina.isPlaying {
+                                //  concertina.noteOn(note: 64)
+                                
+                                if distance(leftIndexFingerTipModelEntity.position, leftIndexFingerKnuckleModelEntity.position) < 0.05 {
+                                    let note = UInt8.random(in: 1..<127)
+                                    concertina.noteOn(note: note)
                                     
-                                    if distance(leftIndexFingerTipModelEntity.position, leftIndexFingerKnuckleModelEntity.position) < 0.05 {
-                                        let note = UInt8.random(in: 1..<127)
-                                        concertina.noteOn(note: note)
-
-                                    }
-                             //   }
-                                /*print("YES MOVING TOWARDS")*/ } else {
-                                   // print("NOT MOVING TOWARDS")
-                                   // concertina.isPlaying = false
                                 }
+                                //   }
+                                /*print("YES MOVING TOWARDS")*/ } else {
+                                    // print("NOT MOVING TOWARDS")
+                                    // concertina.isPlaying = false
+                                }
+                            
+                            updateSpheresPosition(startEntity: leftWristModelEntity, endEntity: rightWristModelEntity)
                             leftLastPosition = leftWristModelEntity.position
                             rightLastPosition = rightWristModelEntity.position
                         }
                     } as? any Cancellable
                     /*
                      let currentTime = Date().timeIntervalSinceReferenceDate
-                       
-                       // Calculate deltaTime as the difference between the current time and the last update time
+                     
+                     // Calculate deltaTime as the difference between the current time and the last update time
                      let deltaTime = currentTime - lastUpdateTime
-                       
-                       // Update the lastUpdateTime for the next frame
+                     
+                     // Update the lastUpdateTime for the next frame
                      lastUpdateTime = deltaTime
                      
                      print(lastUpdateTime)
                      */
-                    
-                    
-                     
                 }
             } update: { content in
                 computeTransformHeartTracking()
@@ -319,7 +333,21 @@ struct HandTrackingView: View {
         }
     }
     
-    func areEntitiesMovingTowardsEachOther(entity1: Entity, 
+    func updateSpheresPosition(startEntity: Entity, endEntity: Entity) {
+        let startPosition = startEntity.position(relativeTo: nil) + SIMD3(0.2,-0.1,-0.05)
+        
+        let endPosition = endEntity.position(relativeTo: nil) + SIMD3(-0.2,-0.1,-0.05)
+        
+        let vector = endPosition - startPosition
+        let segmentLength = vector / Float(totalSpheres - 1)
+        
+        for (index, sphere) in spheres.enumerated() {
+            let newPosition = startPosition + segmentLength * Float(index)
+            sphere.position = newPosition
+        }
+    }
+    
+    func areEntitiesMovingTowardsEachOther(entity1: Entity,
                                            entity2: Entity,
                                            deltaTime: TimeInterval) -> Bool {
         
@@ -327,7 +355,7 @@ struct HandTrackingView: View {
         let displacement1 = entity1.position - leftLastPosition;
         let displacement2 = entity2.position - rightLastPosition;
         
-      //  print(displacement1)
+        //  print(displacement1)
         
         // Check if the displacement vectors are in opposite directions
         return (simd_dot(normalize(displacement1), normalize(displacement2)) < 0)
@@ -342,14 +370,14 @@ struct HandTrackingView: View {
                     case .updated:
                         let anchor = update.anchor
                         guard anchor.isTracked else { continue }
-
+                        
                         if anchor.chirality == .left {
                             latestHandTracking.left = anchor
                         } else if anchor.chirality == .right {
                             latestHandTracking.right = anchor
                         }
-                        default:
-                            break
+                    default:
+                        break
                     }
                 }
             }
@@ -367,6 +395,8 @@ struct HandTrackingView: View {
             // TODO optimize when scaling is done?
             leftWristModelEntity.transform = getTransform(leftHandAnchor, .wrist, leftWristModelEntity.transform)
             leftWristModelEntity.scale = SIMD3(0.01, 0.01, 0.01)
+            let pos = leftWristModelEntity.position
+            leftWristModelEntity.position = SIMD3(pos.x - 0.1, pos.y + 0.1, pos.z - 0.05)
         }
         
         if let rightWristModelEntity = rightWristModelEntity {
@@ -375,7 +405,10 @@ struct HandTrackingView: View {
             rightWristModelEntity.scale = SIMD3(0.01, 0.01, 0.01)
             
             rightWristModelEntity.transform.rotation *= simd_quatf(angle: .pi,
-                                                       axis: SIMD3<Float>(1, 0, 0))
+                                                                   axis: SIMD3<Float>(1, 0, 0))
+            
+            let pos = rightWristModelEntity.position
+            rightWristModelEntity.position = SIMD3(pos.x + 0.1, pos.y + 0.1, pos.z - 0.05)
         }
         
         leftThumbKnuckleModelEntity.transform = getTransform(leftHandAnchor, .thumbKnuckle, leftThumbKnuckleModelEntity.transform)
@@ -387,7 +420,7 @@ struct HandTrackingView: View {
         leftIndexFingerIntermediateBaseModelEntity.transform = getTransform(leftHandAnchor, .indexFingerIntermediateBase, leftIndexFingerIntermediateBaseModelEntity.transform)
         leftIndexFingerIntermediateTipModelEntity.transform = getTransform(leftHandAnchor, .indexFingerIntermediateTip, leftIndexFingerIntermediateTipModelEntity.transform)
         
-       // print("left index: \(leftIndexFingerTipModelEntity.position.z)")
+        // print("left index: \(leftIndexFingerTipModelEntity.position.z)")
         
         leftIndexFingerTipModelEntity.transform = getTransform(leftHandAnchor, .indexFingerTip, leftIndexFingerTipModelEntity.transform)
         leftMiddleFingerMetacarpalModelEntity.transform = getTransform(leftHandAnchor, .middleFingerMetacarpal, leftMiddleFingerMetacarpalModelEntity.transform)
