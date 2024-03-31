@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79913A182BB9D7E4003958DE /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79913A172BB9D7E4003958DE /* MessageView.swift */; };
 		79E41B3A2BB919E100E1379B /* A-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B292BB919E000E1379B /* A-v2.wav */; };
 		79E41B3B2BB919E100E1379B /* A.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2A2BB919E000E1379B /* A.wav */; };
 		79E41B3C2BB919E100E1379B /* B-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B2B2BB919E000E1379B /* B-v2.wav */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		79913A172BB9D7E4003958DE /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		79E41B292BB919E000E1379B /* A-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "A-v2.wav"; sourceTree = "<group>"; };
 		79E41B2A2BB919E000E1379B /* A.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = A.wav; sourceTree = "<group>"; };
 		79E41B2B2BB919E000E1379B /* B-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "B-v2.wav"; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				998EB0C22BB7E76D00B836EA /* ImmersiveView.swift */,
 				998EB0E12BB7EB8800B836EA /* ConcertinaSynth.swift */,
 				998EB0EA2BB8808700B836EA /* HandTrackingView.swift */,
+				79913A172BB9D7E4003958DE /* MessageView.swift */,
 				998EB0C42BB7E76D00B836EA /* ImageBasedLighting.skybox */,
 				998EB0C62BB7E76E00B836EA /* Assets.xcassets */,
 				998EB0CB2BB7E76E00B836EA /* Info.plist */,
@@ -325,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79913A182BB9D7E4003958DE /* MessageView.swift in Sources */,
 				998EB0E22BB7EB8800B836EA /* ConcertinaSynth.swift in Sources */,
 				998EB0C12BB7E76D00B836EA /* ContentView.swift in Sources */,
 				998EB0BF2BB7E76D00B836EA /* ConcertinaApp.swift in Sources */,

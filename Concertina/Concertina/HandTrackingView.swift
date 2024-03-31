@@ -16,6 +16,8 @@ import AudioKit
 struct HandTrackingView: View {
     @StateObject var concertina = ConcertinaSynth()
     
+    @State private var showFloatingMessage = true
+    
     @State var sceneUpdateSubscription : Cancellable? = nil
     let session = ARKitSession()
     var handTrackingProvider = HandTrackingProvider()
@@ -272,79 +274,86 @@ struct HandTrackingView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("Hand Tracking.")
-            RealityView { content in
-                addHandModelEntities(content)
-                if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
-                    content.add(immersiveContentEntity)
-                    
-                  //  concertina.noteOn(note: 60) // TEST NOTE
-                    
-                    if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
-                        leftWristModelEntity = leftEntity
-                        leftWristModelEntity?.components.set(PhysicsMotionComponent())
-                        leftLastPosition = leftWristModelEntity?.position ?? SIMD3<Float>(0,0,0)
-                    } else {
-                        print("Left face not found")
-                    }
-                    
-                    if let rightEntity = immersiveContentEntity.findEntity(named: "Right_ConcertinaFace") {
-                        rightWristModelEntity = rightEntity
-                        rightWristModelEntity?.components.set(PhysicsMotionComponent())
-                        rightLastPosition = rightWristModelEntity?.position ?? SIMD3<Float>(0,0,0)
-                    } else {
-                        print("Right face not found")
-                    }
-                    
-                    for _ in 0..<totalSpheres {
-                        let mesh = MeshResource.generateSphere(radius: 0.05)
-                        let material = SimpleMaterial(color: .darkGray, isMetallic: false)
-                        let sphere = ModelEntity(mesh: mesh, materials: [material])
-                        content.add(sphere)
-                        spheres.append(sphere)
-                    }
-                    
-                    sceneUpdateSubscription = content.subscribe(to: SceneEvents.Update.self) {event in
+        ZStack {
+            VStack {
+                Text("Hand Tracking.")
+                RealityView { content in
+                    addHandModelEntities(content)
+                    if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
+                        content.add(immersiveContentEntity)
                         
+                      //  concertina.noteOn(note: 60) // TEST NOTE
                         
-                        if let leftWristModelEntity = leftWristModelEntity,
-                           let rightWristModelEntity = rightWristModelEntity {
-                            /*  if areEntitiesMovingTowardsEachOther(entity1: leftWristModelEntity, entity2: rightWristModelEntity, deltaTime: event.deltaTime) {*/
-                            //  if !concertina.isPlaying {
-                            //  concertina.noteOn(note: 64)
-                            
-                            updateFingerPositions()
-                            
-                            //   }
-                            /*print("YES MOVING TOWARDS") } else {
-                             // print("NOT MOVING TOWARDS")
-                             // concertina.isPlaying = false
-                             //  }*/
-                            
-                            updateSpheresPosition(startEntity: leftWristModelEntity, endEntity: rightWristModelEntity)
-                            leftLastPosition = leftWristModelEntity.position
-                            rightLastPosition = rightWristModelEntity.position
+                        if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
+                            leftWristModelEntity = leftEntity
+                            leftWristModelEntity?.components.set(PhysicsMotionComponent())
+                            leftLastPosition = leftWristModelEntity?.position ?? SIMD3<Float>(0,0,0)
+                        } else {
+                            print("Left face not found")
                         }
-                    } as? any Cancellable
-                    /*
-                     let currentTime = Date().timeIntervalSinceReferenceDate
-                     
-                     // Calculate deltaTime as the difference between the current time and the last update time
-                     let deltaTime = currentTime - lastUpdateTime
-                     
-                     // Update the lastUpdateTime for the next frame
-                     lastUpdateTime = deltaTime
-                     
-                     print(lastUpdateTime)
-                     */
+                        
+                        if let rightEntity = immersiveContentEntity.findEntity(named: "Right_ConcertinaFace") {
+                            rightWristModelEntity = rightEntity
+                            rightWristModelEntity?.components.set(PhysicsMotionComponent())
+                            rightLastPosition = rightWristModelEntity?.position ?? SIMD3<Float>(0,0,0)
+                        } else {
+                            print("Right face not found")
+                        }
+                        
+                        for _ in 0..<totalSpheres {
+                            let mesh = MeshResource.generateSphere(radius: 0.05)
+                            let material = SimpleMaterial(color: .darkGray, isMetallic: false)
+                            let sphere = ModelEntity(mesh: mesh, materials: [material])
+                            content.add(sphere)
+                            spheres.append(sphere)
+                        }
+                        
+                        sceneUpdateSubscription = content.subscribe(to: SceneEvents.Update.self) {event in
+                            
+                            
+                            if let leftWristModelEntity = leftWristModelEntity,
+                               let rightWristModelEntity = rightWristModelEntity {
+                                /*  if areEntitiesMovingTowardsEachOther(entity1: leftWristModelEntity, entity2: rightWristModelEntity, deltaTime: event.deltaTime) {*/
+                                //  if !concertina.isPlaying {
+                                //  concertina.noteOn(note: 64)
+                                
+                                updateFingerPositions()
+                                
+                                //   }
+                                /*print("YES MOVING TOWARDS") } else {
+                                 // print("NOT MOVING TOWARDS")
+                                 // concertina.isPlaying = false
+                                 //  }*/
+                                
+                                updateSpheresPosition(startEntity: leftWristModelEntity, endEntity: rightWristModelEntity)
+                                leftLastPosition = leftWristModelEntity.position
+                                rightLastPosition = rightWristModelEntity.position
+                            }
+                        } as? any Cancellable
+                        /*
+                         let currentTime = Date().timeIntervalSinceReferenceDate
+                         
+                         // Calculate deltaTime as the difference between the current time and the last update time
+                         let deltaTime = currentTime - lastUpdateTime
+                         
+                         // Update the lastUpdateTime for the next frame
+                         lastUpdateTime = deltaTime
+                         
+                         print(lastUpdateTime)
+                         */
+                    }
+                    concertina.isPlaying = true
+                } update: { content in
+                    computeTransformHeartTracking()
                 }
-                concertina.isPlaying = true
-            } update: { content in
-                computeTransformHeartTracking()
+            }.onAppear {
+                handTracking()
             }
-        }.onAppear {
-            handTracking()
+        }
+        // Floating message overlay
+        if showFloatingMessage {
+            FloatingMessageView(isShowing: $showFloatingMessage)
+                .transition(.scale.combined(with: .opacity))
         }
     }
     
