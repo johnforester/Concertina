@@ -10,16 +10,22 @@ import RealityKit
 import ARKit
 import RealityKitContent
 import Tonic
+import Combine
 
 struct HandTrackingView: View {
     @StateObject var concertina = ConcertinaSynth()
 
+    @State var sceneUpdateSubscription : Cancellable? = nil
     let session = ARKitSession()
     var handTrackingProvider = HandTrackingProvider()
+
     @State var latestHandTracking: HandsUpdates = .init(left: nil, right: nil)
     
     @State var leftWristModelEntity: Entity?
     @State var rightWristModelEntity: Entity?
+    
+    @State var leftLastPosition = SIMD3<Float>(0,0,0)
+    @State var rightLastPosition = SIMD3<Float>(0,0,0)
     
     @State var leftThumbKnuckleModelEntity = ModelEntity(
         mesh: .generateSphere(radius: 0.015),
@@ -249,19 +255,61 @@ struct HandTrackingView: View {
                 if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
                     content.add(immersiveContentEntity)
 
-                    concertina.noteOn(pitch: Pitch(60))
+                    concertina.noteOn(note: 60) // TEST NOTE
                     
                     if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
                         leftWristModelEntity = leftEntity
+                        leftWristModelEntity?.components.set(PhysicsMotionComponent())
+                        leftLastPosition = leftWristModelEntity?.position ?? SIMD3<Float>(0,0,0)
                     } else {
                         print("Left face not found")
                     }
                     
                     if let rightEntity = immersiveContentEntity.findEntity(named: "Right_ConcertinaFace") {
                         rightWristModelEntity = rightEntity
+                        rightWristModelEntity?.components.set(PhysicsMotionComponent())
+                        rightLastPosition = rightWristModelEntity?.position ?? SIMD3<Float>(0,0,0)
                     } else {
                         print("Right face not found")
                     }
+                    
+                    sceneUpdateSubscription = content.subscribe(to: SceneEvents.Update.self) {event in
+                        
+                        
+                        if let leftWristModelEntity = leftWristModelEntity,
+                           let rightWristModelEntity = rightWristModelEntity {
+                            if areEntitiesMovingTowardsEachOther(entity1: leftWristModelEntity, entity2: rightWristModelEntity, deltaTime: event.deltaTime) {
+                              //  if !concertina.isPlaying {
+                                  //  concertina.noteOn(note: 64)
+                                    
+                                    if distance(leftIndexFingerTipModelEntity.position, leftIndexFingerKnuckleModelEntity.position) < 0.05 {
+                                        let note = UInt8.random(in: 1..<127)
+                                        concertina.noteOn(note: note)
+
+                                    }
+                             //   }
+                                /*print("YES MOVING TOWARDS")*/ } else {
+                                   // print("NOT MOVING TOWARDS")
+                                   // concertina.isPlaying = false
+                                }
+                            leftLastPosition = leftWristModelEntity.position
+                            rightLastPosition = rightWristModelEntity.position
+                        }
+                    } as? any Cancellable
+                    /*
+                     let currentTime = Date().timeIntervalSinceReferenceDate
+                       
+                       // Calculate deltaTime as the difference between the current time and the last update time
+                     let deltaTime = currentTime - lastUpdateTime
+                       
+                       // Update the lastUpdateTime for the next frame
+                     lastUpdateTime = deltaTime
+                     
+                     print(lastUpdateTime)
+                     */
+                    
+                    
+                     
                 }
             } update: { content in
                 computeTransformHeartTracking()
@@ -269,6 +317,20 @@ struct HandTrackingView: View {
         }.onAppear {
             handTracking()
         }
+    }
+    
+    func areEntitiesMovingTowardsEachOther(entity1: Entity, 
+                                           entity2: Entity,
+                                           deltaTime: TimeInterval) -> Bool {
+        
+        // Calculate displacement vectors
+        let displacement1 = entity1.position - leftLastPosition;
+        let displacement2 = entity2.position - rightLastPosition;
+        
+      //  print(displacement1)
+        
+        // Check if the displacement vectors are in opposite directions
+        return (simd_dot(normalize(displacement1), normalize(displacement2)) < 0)
     }
     
     func handTracking() {
@@ -280,6 +342,7 @@ struct HandTrackingView: View {
                     case .updated:
                         let anchor = update.anchor
                         guard anchor.isTracked else { continue }
+
                         if anchor.chirality == .left {
                             latestHandTracking.left = anchor
                         } else if anchor.chirality == .right {

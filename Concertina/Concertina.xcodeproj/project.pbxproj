@@ -563,11 +563,11 @@
 				998EB0C02BB7E76D00B836EA /* ContentView.swift */,
 				998EB0C22BB7E76D00B836EA /* ImmersiveView.swift */,
 				998EB0E12BB7EB8800B836EA /* ConcertinaSynth.swift */,
+				998EB0EA2BB8808700B836EA /* HandTrackingView.swift */,
 				998EB0C42BB7E76D00B836EA /* ImageBasedLighting.skybox */,
 				998EB0C62BB7E76E00B836EA /* Assets.xcassets */,
 				998EB0CB2BB7E76E00B836EA /* Info.plist */,
 				998EB0C82BB7E76E00B836EA /* Preview Content */,
-				998EB0EA2BB8808700B836EA /* HandTrackingView.swift */,
 			);
 			path = Concertina;
 			sourceTree = "<group>";

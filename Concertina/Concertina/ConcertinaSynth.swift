@@ -19,14 +19,14 @@ class ConcertinaSynth: ObservableObject {
     let sampler = Sampler()
 
     
-    func noteOn(pitch: Pitch) {
+    func noteOn(note: MIDINoteNumber) {
         isPlaying = true
-        sampler.play(noteNumber: 64, velocity: 127)
-
+        sampler.play(noteNumber: note, velocity: 127)
     }
     
-    func noteOff(pitch _: Pitch) {
+    func noteOff(note: MIDINoteNumber) {
         isPlaying = false
+        sampler.stop(noteNumber: note)
     }
     
     @Published var isPlaying: Bool = false {
