@@ -339,9 +339,9 @@ struct HandTrackingView: View {
                     sceneUpdateSubscription = content.subscribe(to: SceneEvents.Update.self) {event in
                         if let leftWristModelEntity = leftWristModelEntity,
                            let rightWristModelEntity = rightWristModelEntity {
-                            if areEntitiesMovingTowardsEachOther(entity1: leftWristModelEntity, entity2: rightWristModelEntity, deltaTime: event.deltaTime) {
-                                print("moving towards each other")
-                            }
+//                            if areEntitiesMovingTowardsEachOther(entity1: leftWristModelEntity, entity2: rightWristModelEntity, deltaTime: event.deltaTime) {
+//                                print("moving towards each other")
+//                            }
                             //  if !concertina.isPlaying {
                             //  concertina.noteOn(note: 64)
                             
@@ -492,14 +492,14 @@ struct HandTrackingView: View {
                 button.transform = getTransform(leftHandAnchor, .wrist, leftWristModelEntity.transform)
                 
                 let pos = button.position
-                button.position = SIMD3(pos.x + 0.05, pos.y + 0.12 - y, pos.z - 0.1 + z)
+                button.position = SIMD3(pos.x + 0.05, pos.y + 0.12 - y, pos.z - 0.12 + z)
                 
                 if i == buttonsPerRow-1 {
                     // start next row
-                    z = 0.03
+                    z = 0.05
                     y = 0.0
                 }
-                y = y + 0.025
+                y = y + 0.03
             }
         }
         
