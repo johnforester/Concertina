@@ -17,13 +17,17 @@ import AVFAudio
 struct HandTrackingView: View {
     @StateObject var concertina = ConcertinaSynth()
     
-    @State var sceneUpdateSubscription : Cancellable? = nil
+    @State private var sceneUpdateSubscription : Cancellable? = nil
+    @State private var collisionSubscriptions = [EventSubscription]()
+
     let session = ARKitSession()
     var handTrackingProvider = HandTrackingProvider()
     @State var domsSong: AVAudioPlayer?
 
     @State var spheres: [Entity] = []
     let totalSpheres = 10
+    
+    @State var buttons: [Entity] = []
     
     @State var latestHandTracking: HandsUpdates = .init(left: nil, right: nil)
     
@@ -41,7 +45,10 @@ struct HandTrackingView: View {
     @State var leftIndexFingerKnuckleModelEntity = Entity()
     @State var leftIndexFingerIntermediateBaseModelEntity = Entity()
     @State var leftIndexFingerIntermediateTipModelEntity = Entity()
-    @State var leftIndexFingerTipModelEntity = Entity()
+    @State var leftIndexFingerTipModelEntity = ModelEntity(
+        mesh: .generateSphere(radius: 0.01),
+        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
+      )
     @State var leftMiddleFingerMetacarpalModelEntity = Entity()
     @State var leftMiddleFingerKnuckleModelEntity = Entity()
     @State var leftMiddleFingerIntermediateBaseModelEntity = Entity()
@@ -206,7 +213,11 @@ struct HandTrackingView: View {
         VStack {
             Text("Hand Tracking.")
             RealityView { content in
+                
+                leftIndexFingerTipModelEntity.generateCollisionShapes(recursive: true)
+                
                 addHandModelEntities(content)
+                
                 if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
                     content.add(immersiveContentEntity)
                     
@@ -232,13 +243,29 @@ struct HandTrackingView: View {
                         let mesh = MeshResource.generateSphere(radius: 0.05)
                         let material = SimpleMaterial(color: .darkGray, isMetallic: false)
                         let sphere = ModelEntity(mesh: mesh, materials: [material])
+                        //sphere.components.set(CollisionComponent)
                         content.add(sphere)
                         spheres.append(sphere)
                     }
                     
+                    //collisionSubscriptions.removeAll()
+                    
+                    for _ in 0..<4 {
+                        let mesh = MeshResource.generateBox(width: 0.01, height: 0.01, depth: 0.01)
+                        let material = SimpleMaterial(color: .blue, isMetallic: false)
+                        let button = ModelEntity(mesh: mesh,
+                                                 materials: [material])
+                        button.generateCollisionShapes(recursive: true)
+                        content.add(button)
+                        buttons.append(button)
+                        
+                        collisionSubscriptions.append(content.subscribe(to: CollisionEvents.Began.self, on: button) { collisionEvent in
+                            print("💥 Collision between \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name)")
+                        })
+                    }
+                    
+                    
                     sceneUpdateSubscription = content.subscribe(to: SceneEvents.Update.self) {event in
-                        
-                        
                         if let leftWristModelEntity = leftWristModelEntity,
                            let rightWristModelEntity = rightWristModelEntity {
                             /*  if areEntitiesMovingTowardsEachOther(entity1: leftWristModelEntity, entity2: rightWristModelEntity, deltaTime: event.deltaTime) {*/
@@ -252,12 +279,12 @@ struct HandTrackingView: View {
                                 let path = Bundle.main.path(forResource: "Nearer_My_God_to_Thee_reverb_room", ofType:"m4a")!
                                 let url = URL(fileURLWithPath: path)
 
-                                do {
-                                    domsSong = try AVAudioPlayer(contentsOf: url)
-                                    domsSong?.play()
-                                } catch {
-                                    print("couldn't load Dom's song")
-                                }
+//                                do {
+//                                    domsSong = try AVAudioPlayer(contentsOf: url)
+//                                    domsSong?.play()
+//                                } catch {
+//                                    print("couldn't load Dom's song")
+//                                }
                             }
                             
                             updateFingerPositions()
@@ -301,7 +328,7 @@ struct HandTrackingView: View {
 //                print("little distance: \(distance(fingerStatuses[i].tip.position, fingerStatuses[i].knuckle.position))")
 //            }
 //            
-            if distance(fingerStatuses[i].tip.position, fingerStatuses[i].knuckle.position) < fingerStatuses[i].distanceToTrigger {
+         /*   if distance(fingerStatuses[i].tip.position, fingerStatuses[i].knuckle.position) < fingerStatuses[i].distanceToTrigger {
                 if !fingerStatuses[i].isPlaying {
                     concertina.noteOn(note: fingerStatuses[i].note)
                     fingerStatuses[i].isPlaying = true
@@ -311,7 +338,7 @@ struct HandTrackingView: View {
             } else if fingerStatuses[i].isPlaying == true {
                 concertina.noteOff(note: fingerStatuses[i].note)
                 fingerStatuses[i].isPlaying = false
-            }
+            }*/
         }
     }
     
@@ -380,6 +407,16 @@ struct HandTrackingView: View {
             leftWristModelEntity.scale = SIMD3(0.01, 0.01, 0.01)
             let pos = leftWristModelEntity.position
             leftWristModelEntity.position = SIMD3(pos.x - 0.1, pos.y + 0.1, pos.z - 0.05)
+            
+            var y: Float = 0.0
+            for button in buttons {
+                button.transform = getTransform(leftHandAnchor, .wrist, leftWristModelEntity.transform)
+                //leftWristModelEntity.scale = SIMD3(0.01, 0.01, 0.01)
+                
+                let pos = button.position
+                button.position = SIMD3(pos.x + 0.1, pos.y + 0.1 - y, pos.z - 0.1)
+                y = y + 0.02
+            }
         }
         
         if let rightWristModelEntity = rightWristModelEntity {
