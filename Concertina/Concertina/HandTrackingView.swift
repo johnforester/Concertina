@@ -28,6 +28,8 @@ struct HandTrackingView: View {
     let totalSpheres = 10
     
     @State var buttons: [Entity] = []
+    @State var leftSideViewModel: ButtonSideModel
+    @State var rightSideViewModel: ButtonSideModel
     
     @State var latestHandTracking: HandsUpdates = .init(left: nil, right: nil)
     
@@ -104,12 +106,54 @@ struct HandTrackingView: View {
         var distanceToTrigger: Float
     }
     
+    struct ButtonSideModel {
+        var rowModels = [ButtonRowModel]()
+    }
+    
+    struct ButtonRowModel {
+        var buttonViewModels = [ButtonViewModel]()
+    }
+    
+    struct ButtonViewModel {
+        var isPlaying: Bool
+        var inNote: MIDINoteNumber
+        var outNote: MIDINoteNumber
+    }
+    
     struct HandsUpdates {
         var left: HandAnchor?
         var right: HandAnchor?
     }
     
     fileprivate func addHandModelEntities(_ content: RealityViewContent) {
+         leftSideViewModel = ButtonSideModel(rowModels: [
+            ButtonRowModel(buttonViewModels:
+                            [ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
+                             ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
+                             ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
+                             ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
+                             ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65)]),
+            ButtonRowModel(buttonViewModels:
+                            [ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
+                             ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
+                             ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
+                             ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
+                             ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65)])])
+             
+        rightSideViewModel = ButtonSideModel(rowModels: [
+           ButtonRowModel(buttonViewModels:
+                           [ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
+                            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
+                            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
+                            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
+                            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65)]),
+           ButtonRowModel(buttonViewModels:
+                           [ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
+                            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
+                            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
+                            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
+                            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65)])])
+        
         fingerStatuses = [
             FingerStatus(tip: leftIndexFingerTipModelEntity,
                          knuckle: leftIndexFingerKnuckleModelEntity,
