@@ -28,8 +28,7 @@ struct HandTrackingView: View {
     let totalSpheres = 10
     
     @State var buttons: [Entity] = []
-    @State var leftSideViewModel: ButtonSideModel
-    @State var rightSideViewModel: ButtonSideModel
+    @State var buttonViewModels: [ButtonViewModel]
     
     @State var latestHandTracking: HandsUpdates = .init(left: nil, right: nil)
     
@@ -126,33 +125,32 @@ struct HandTrackingView: View {
     }
     
     fileprivate func addHandModelEntities(_ content: RealityViewContent) {
-         leftSideViewModel = ButtonSideModel(rowModels: [
-            ButtonRowModel(buttonViewModels:
-                            [ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
-                             ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
-                             ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
-                             ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
-                             ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65)]),
-            ButtonRowModel(buttonViewModels:
-                            [ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
-                             ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
-                             ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
-                             ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
-                             ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65)])])
-             
-        rightSideViewModel = ButtonSideModel(rowModels: [
-           ButtonRowModel(buttonViewModels:
-                           [ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
-                            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
-                            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
-                            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
-                            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65)]),
-           ButtonRowModel(buttonViewModels:
-                           [ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
-                            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
-                            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
-                            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
-                            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65)])])
+        buttonViewModels =  [
+            ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
+            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
+            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
+            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
+            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65),
+            
+            ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
+            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
+            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
+            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
+            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65),
+            
+            
+            
+            ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
+            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
+            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
+            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
+            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65),
+            
+            ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
+            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
+            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
+            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
+            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65)]
         
         fingerStatuses = [
             FingerStatus(tip: leftIndexFingerTipModelEntity,
@@ -294,17 +292,24 @@ struct HandTrackingView: View {
                     
                     //collisionSubscriptions.removeAll()
                     
-                    for _ in 0..<4 {
+                    for buttonViewModel in buttonViewModels {
                         let mesh = MeshResource.generateBox(width: 0.01, height: 0.01, depth: 0.01)
                         let material = SimpleMaterial(color: .blue, isMetallic: false)
                         let button = ModelEntity(mesh: mesh,
                                                  materials: [material])
                         button.generateCollisionShapes(recursive: true)
+                        button.name = String(buttonViewModel.inNote)
                         content.add(button)
                         buttons.append(button)
                         
                         collisionSubscriptions.append(content.subscribe(to: CollisionEvents.Began.self, on: button) { collisionEvent in
                             print("💥 Collision between \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name)")
+                            concertina.noteOn(note: buttonViewModel.inNote)
+                        })
+                        
+                        collisionSubscriptions.append(content.subscribe(to: CollisionEvents.Ended.self, on: button) { collisionEvent in
+                            print("End Collision between \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name) 💥")
+                            concertina.noteOff(note: buttonViewModel.inNote)
                         })
                     }
                     

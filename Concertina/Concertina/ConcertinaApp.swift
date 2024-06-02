@@ -15,7 +15,7 @@ struct ConcertinaApp: App {
         }
 
         ImmersiveSpace(id: "ImmersiveSpace") {
-            HandTrackingView()
+            HandTrackingView(buttonViewModels: [])
         }
     }
 }
