@@ -54,17 +54,26 @@ struct HandTrackingView: View {
     @State var leftMiddleFingerKnuckleModelEntity = Entity()
     @State var leftMiddleFingerIntermediateBaseModelEntity = Entity()
     @State var leftMiddleFingerIntermediateTipModelEntity = Entity()
-    @State var leftMiddleFingerTipModelEntity = Entity()
+    @State var leftMiddleFingerTipModelEntity = ModelEntity(
+        mesh: .generateSphere(radius: 0.01),
+        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
+      )
     @State var leftRingFingerMetacarpalModelEntity = Entity()
     @State var leftRingFingerKnuckleModelEntity = Entity()
     @State var leftRingFingerIntermediateBaseModelEntity = Entity()
     @State var leftRingFingerIntermediateTipModelEntity = Entity()
-    @State var leftRingFingerTipModelEntity = Entity()
+    @State var leftRingFingerTipModelEntity = ModelEntity(
+        mesh: .generateSphere(radius: 0.01),
+        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
+      )
     @State var leftLittleFingerMetacarpalModelEntity = Entity()
     @State var leftLittleFingerKnuckleModelEntity = Entity()
     @State var leftLittleFingerIntermediateBaseModelEntity = Entity()
     @State var leftLittleFingerIntermediateTipModelEntity = Entity()
-    @State var leftLittleFingerTipModelEntity = Entity()
+    @State var leftLittleFingerTipModelEntity = ModelEntity(
+        mesh: .generateSphere(radius: 0.01),
+        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
+      )
     @State var leftForearmWristModelEntity = Entity()
     @State var leftForearmArmModelEntity = Entity()
     
@@ -76,22 +85,34 @@ struct HandTrackingView: View {
     @State var rightIndexFingerKnuckleModelEntity = Entity()
     @State var rightIndexFingerIntermediateBaseModelEntity = Entity()
     @State var rightIndexFingerIntermediateTipModelEntity = Entity()
-    @State var rightIndexFingerTipModelEntity = Entity()
+    @State var rightIndexFingerTipModelEntity = ModelEntity(
+        mesh: .generateSphere(radius: 0.01),
+        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
+      )
     @State var rightMiddleFingerMetacarpalModelEntity = Entity()
     @State var rightMiddleFingerKnuckleModelEntity = Entity()
     @State var rightMiddleFingerIntermediateBaseModelEntity = Entity()
     @State var rightMiddleFingerIntermediateTipModelEntity = Entity()
-    @State var rightMiddleFingerTipModelEntity = Entity()
+    @State var rightMiddleFingerTipModelEntity = ModelEntity(
+        mesh: .generateSphere(radius: 0.01),
+        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
+      )
     @State var rightRingFingerMetacarpalModelEntity = Entity()
     @State var rightRingFingerKnuckleModelEntity = Entity()
     @State var rightRingFingerIntermediateBaseModelEntity = Entity()
     @State var rightRingFingerIntermediateTipModelEntity = Entity()
-    @State var rightRingFingerTipModelEntity = Entity()
+    @State var rightRingFingerTipModelEntity = ModelEntity(
+        mesh: .generateSphere(radius: 0.01),
+        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
+      )
     @State var rightLittleFingerMetacarpalModelEntity = Entity()
     @State var rightLittleFingerKnuckleModelEntity = Entity()
     @State var rightLittleFingerIntermediateBaseModelEntity = Entity()
     @State var rightLittleFingerIntermediateTipModelEntity = Entity()
-    @State var rightLittleFingerTipModelEntity = Entity()
+    @State var rightLittleFingerTipModelEntity = ModelEntity(
+        mesh: .generateSphere(radius: 0.01),
+        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
+      )
     @State var rightForearmWristModelEntity = Entity()
     @State var rightForearmArmModelEntity = Entity()
     
@@ -123,34 +144,32 @@ struct HandTrackingView: View {
         var left: HandAnchor?
         var right: HandAnchor?
     }
-    
+
     fileprivate func addHandModelEntities(_ content: RealityViewContent) {
         buttonViewModels =  [
-            ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
-            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
-            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
-            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
-            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65),
+            ButtonViewModel(isPlaying: false, inNote: 80, outNote: 82), // G# | Bb
+            ButtonViewModel(isPlaying: false, inNote: 81, outNote: 79), // A | G
+            ButtonViewModel(isPlaying: false, inNote: 73, outNote: 75), // C# | Eb
+            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 58), // A | Bb
+            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65), // E | F
             
-            ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
-            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
-            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
-            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
-            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65),
+            ButtonViewModel(isPlaying: false, inNote: 79, outNote: 81), // G | A
+            ButtonViewModel(isPlaying: false, inNote: 76, outNote: 77), // E | F
+            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63), // C | D
+            ButtonViewModel(isPlaying: false, inNote: 55, outNote: 59), // G | B
+            ButtonViewModel(isPlaying: false, inNote: 60, outNote: 55), // C | G
             
+            ButtonViewModel(isPlaying: false, inNote: 72, outNote: 71), // C | B
+            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 62), // E | D
+            ButtonViewModel(isPlaying: false, inNote: 67, outNote: 65), // G | F
+            ButtonViewModel(isPlaying: false, inNote: 60, outNote: 58), // C | A
+            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 59), // E || B
             
-            
-            ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
-            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
-            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
-            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
-            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65),
-            
-            ButtonViewModel(isPlaying: false, inNote: 56, outNote: 58),
-            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 55),
-            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63),
-            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 70),
-            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65)]
+            ButtonViewModel(isPlaying: false, inNote: 73, outNote: 75), // C# | Eb
+            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 67), // A | G
+            ButtonViewModel(isPlaying: false, inNote: 68, outNote: 70), // G# | Bb
+            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63), // C# | Eb
+            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 53)] // A | F
         
         fingerStatuses = [
             FingerStatus(tip: leftIndexFingerTipModelEntity,
@@ -253,18 +272,21 @@ struct HandTrackingView: View {
     
     var body: some View {
         VStack {
-            Text("Hand Tracking.")
             RealityView { content in
+                addHandModelEntities(content)
                 
                 leftIndexFingerTipModelEntity.generateCollisionShapes(recursive: true)
-                
-                addHandModelEntities(content)
+                leftMiddleFingerTipModelEntity.generateCollisionShapes(recursive: true)
+                leftRingFingerTipModelEntity.generateCollisionShapes(recursive: true)
+                leftLittleFingerTipModelEntity.generateCollisionShapes(recursive: true)
+                rightIndexFingerTipModelEntity.generateCollisionShapes(recursive: true)
+                rightMiddleFingerTipModelEntity.generateCollisionShapes(recursive: true)
+                rightRingFingerTipModelEntity.generateCollisionShapes(recursive: true)
+                rightLittleFingerTipModelEntity.generateCollisionShapes(recursive: true)
                 
                 if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
                     content.add(immersiveContentEntity)
-                    
-                  //  concertina.noteOn(note: 60) // TEST NOTE
-                    
+                                        
                    if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
                         leftWristModelEntity = leftEntity
                        // leftWristModelEntity?.components.set(PhysicsMotionComponent())
@@ -290,11 +312,11 @@ struct HandTrackingView: View {
                         spheres.append(sphere)
                     }
                     
-                    //collisionSubscriptions.removeAll()
+                    collisionSubscriptions.removeAll()
                     
                     for buttonViewModel in buttonViewModels {
-                        let mesh = MeshResource.generateBox(width: 0.01, height: 0.01, depth: 0.01)
-                        let material = SimpleMaterial(color: .blue, isMetallic: false)
+                        let mesh = MeshResource.generateCylinder(height: 0.01, radius: 0.01)
+                        let material = SimpleMaterial(color: .white, isMetallic: false)
                         let button = ModelEntity(mesh: mesh,
                                                  materials: [material])
                         button.generateCollisionShapes(recursive: true)
@@ -458,13 +480,24 @@ struct HandTrackingView: View {
             leftWristModelEntity.position = SIMD3(pos.x - 0.1, pos.y + 0.1, pos.z - 0.05)
             
             var y: Float = 0.0
-            for button in buttons {
+            var z: Float = 0.0
+            
+            let leftButtonsCount = buttons.count / 2
+            let buttonsPerRow = leftButtonsCount / 2
+            
+            for i in 0..<leftButtonsCount {
+                let button = buttons[i]
                 button.transform = getTransform(leftHandAnchor, .wrist, leftWristModelEntity.transform)
-                //leftWristModelEntity.scale = SIMD3(0.01, 0.01, 0.01)
                 
                 let pos = button.position
-                button.position = SIMD3(pos.x + 0.1, pos.y + 0.1 - y, pos.z - 0.1)
-                y = y + 0.02
+                button.position = SIMD3(pos.x + 0.05, pos.y + 0.2 - y, pos.z - 0.1 + z)
+                
+                if i == buttonsPerRow-1 {
+                    // start next row
+                    z = 0.03
+                    y = 0.0
+                }
+                y = y + 0.025
             }
         }
         
