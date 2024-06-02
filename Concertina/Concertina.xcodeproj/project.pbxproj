@@ -23,6 +23,7 @@
 		79E41B472BB919E100E1379B /* G2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B362BB919E000E1379B /* G2.wav */; };
 		79E41B482BB919E100E1379B /* Gb-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B372BB919E000E1379B /* Gb-v2.wav */; };
 		79E41B492BB919E100E1379B /* Gb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B382BB919E000E1379B /* Gb.wav */; };
+		7A45E4712C0C121900ACB5E1 /* ConcertinaFace.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 7A45E4702C0C121900ACB5E1 /* ConcertinaFace.usdz */; };
 		99777ACB2BB8EDC300271672 /* DunneAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 99777ACA2BB8EDC300271672 /* DunneAudioKit */; };
 		99777ACD2BB9EC1500271672 /* Nearer_My_God_to_Thee_reverb_room.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 99777ACC2BB9EC1400271672 /* Nearer_My_God_to_Thee_reverb_room.m4a */; };
 		998EB0BD2BB7E76D00B836EA /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 998EB0BC2BB7E76D00B836EA /* RealityKitContent */; };
@@ -67,6 +68,7 @@
 		79E41B362BB919E000E1379B /* G2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = G2.wav; sourceTree = "<group>"; };
 		79E41B372BB919E000E1379B /* Gb-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Gb-v2.wav"; sourceTree = "<group>"; };
 		79E41B382BB919E000E1379B /* Gb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Gb.wav; sourceTree = "<group>"; };
+		7A45E4702C0C121900ACB5E1 /* ConcertinaFace.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = ConcertinaFace.usdz; path = Packages/RealityKitContent/Sources/RealityKitContent/RealityKitContent.rkassets/ConcertinaFace.usdz; sourceTree = SOURCE_ROOT; };
 		99777ACC2BB9EC1400271672 /* Nearer_My_God_to_Thee_reverb_room.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nearer_My_God_to_Thee_reverb_room.m4a; sourceTree = "<group>"; };
 		998EB0B72BB7E76D00B836EA /* Concertina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Concertina.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		998EB0BB2BB7E76D00B836EA /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		998EB0B92BB7E76D00B836EA /* Concertina */ = {
 			isa = PBXGroup;
 			children = (
+				7A45E4702C0C121900ACB5E1 /* ConcertinaFace.usdz */,
 				99777ACC2BB9EC1400271672 /* Nearer_My_God_to_Thee_reverb_room.m4a */,
 				79E41B392BB919E000E1379B /* ConcertinaNotes */,
 				998EB0BE2BB7E76D00B836EA /* ConcertinaApp.swift */,
@@ -303,6 +306,7 @@
 				79E41B422BB919E100E1379B /* E-v2.wav in Resources */,
 				79E41B462BB919E100E1379B /* G2-v2.wav in Resources */,
 				79E41B3C2BB919E100E1379B /* B-v2.wav in Resources */,
+				7A45E4712C0C121900ACB5E1 /* ConcertinaFace.usdz in Resources */,
 				79E41B3A2BB919E100E1379B /* A-v2.wav in Resources */,
 				998EB0CA2BB7E76E00B836EA /* Preview Assets.xcassets in Resources */,
 				79E41B412BB919E100E1379B /* D.wav in Resources */,
@@ -491,7 +495,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.forester.Concertina;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "xros xrsimulator";
@@ -517,7 +521,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.forester.Concertina;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "xros xrsimulator";

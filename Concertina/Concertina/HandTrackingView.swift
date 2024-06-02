@@ -212,9 +212,9 @@ struct HandTrackingView: View {
                     
                   //  concertina.noteOn(note: 60) // TEST NOTE
                     
-                    if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
+                   if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
                         leftWristModelEntity = leftEntity
-                        leftWristModelEntity?.components.set(PhysicsMotionComponent())
+                       // leftWristModelEntity?.components.set(PhysicsMotionComponent())
                         leftLastPosition = leftWristModelEntity?.position ?? SIMD3<Float>(0,0,0)
                     } else {
                         print("Left face not found")
@@ -222,7 +222,7 @@ struct HandTrackingView: View {
                     
                     if let rightEntity = immersiveContentEntity.findEntity(named: "Right_ConcertinaFace") {
                         rightWristModelEntity = rightEntity
-                        rightWristModelEntity?.components.set(PhysicsMotionComponent())
+                       // rightWristModelEntity?.components.set(PhysicsMotionComponent())
                         rightLastPosition = rightWristModelEntity?.position ?? SIMD3<Float>(0,0,0)
                     } else {
                         print("Right face not found")
@@ -355,6 +355,7 @@ struct HandTrackingView: View {
                         
                         if anchor.chirality == .left {
                             latestHandTracking.left = anchor
+                            
                         } else if anchor.chirality == .right {
                             latestHandTracking.right = anchor
                         }
