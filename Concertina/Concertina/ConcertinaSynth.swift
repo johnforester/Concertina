@@ -20,12 +20,10 @@ class ConcertinaSynth: ObservableObject {
 
     
     func noteOn(note: MIDINoteNumber) {
-      //  isPlaying = true
         sampler.play(noteNumber: note, velocity: 127)
     }
     
     func noteOff(note: MIDINoteNumber) {
-      //  isPlaying = false
         sampler.stop(noteNumber: note)
     }
     

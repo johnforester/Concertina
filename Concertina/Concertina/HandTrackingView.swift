@@ -14,6 +14,32 @@ import Combine
 import AudioKit
 import AVFAudio
 
+class KalmanFilter {
+    var Q: Float = 0.0001  // Process noise covariance
+    var R: Float = 0.1     // Measurement noise covariance
+    var x: Float = 0.0     // Value
+    var P: Float = 1.0     // Estimation error covariance
+    var K: Float = 0.0     // Kalman gain
+
+    func update(measurement: Float) -> Float {
+        // Prediction update
+        P = P + Q
+
+        // Measurement update
+        K = P / (P + R)
+        x = x + K * (measurement - x)
+        P = (1 - K) * P
+
+        return x
+    }
+}
+
+enum BellowsDirection {
+    case stable
+    case pushIn
+    case pullOut
+}
+
 struct HandTrackingView: View {
     @StateObject var concertina = ConcertinaSynth()
     
@@ -29,6 +55,11 @@ struct HandTrackingView: View {
     
     @State var buttons: [Entity] = []
     @State var buttonViewModels: [ButtonViewModel]
+    @State var activeButtons = [ButtonViewModel]()
+    
+    @State var previousDistance: Float = 0.0
+    @State var bellowsDirection = BellowsDirection.stable
+    let kalmanFilter = KalmanFilter()
     
     @State var latestHandTracking: HandsUpdates = .init(left: nil, right: nil)
     
@@ -116,16 +147,6 @@ struct HandTrackingView: View {
     @State var rightForearmWristModelEntity = Entity()
     @State var rightForearmArmModelEntity = Entity()
     
-    @State var fingerStatuses = [FingerStatus]()
-    
-    struct FingerStatus {
-        var tip: Entity
-        var knuckle: Entity
-        var isPlaying: Bool
-        var note: MIDINoteNumber
-        var distanceToTrigger: Float
-    }
-    
     struct ButtonSideModel {
         var rowModels = [ButtonRowModel]()
     }
@@ -134,8 +155,7 @@ struct HandTrackingView: View {
         var buttonViewModels = [ButtonViewModel]()
     }
     
-    struct ButtonViewModel {
-        var isPlaying: Bool
+    struct ButtonViewModel: Equatable {
         var inNote: MIDINoteNumber
         var outNote: MIDINoteNumber
     }
@@ -147,74 +167,30 @@ struct HandTrackingView: View {
 
     fileprivate func addHandModelEntities(_ content: RealityViewContent) {
         buttonViewModels =  [
-            ButtonViewModel(isPlaying: false, inNote: 80, outNote: 82), // G# | Bb
-            ButtonViewModel(isPlaying: false, inNote: 81, outNote: 79), // A | G
-            ButtonViewModel(isPlaying: false, inNote: 73, outNote: 75), // C# | Eb
-            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 58), // A | Bb
-            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 65), // E | F
+            ButtonViewModel(inNote: 80, outNote: 82), // G# | Bb
+            ButtonViewModel(inNote: 81, outNote: 79), // A | G
+            ButtonViewModel(inNote: 73, outNote: 75), // C# | Eb
+            ButtonViewModel(inNote: 57, outNote: 58), // A | Bb
+            ButtonViewModel(inNote: 64, outNote: 65), // E | F
             
-            ButtonViewModel(isPlaying: false, inNote: 79, outNote: 81), // G | A
-            ButtonViewModel(isPlaying: false, inNote: 76, outNote: 77), // E | F
-            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63), // C | D
-            ButtonViewModel(isPlaying: false, inNote: 55, outNote: 59), // G | B
-            ButtonViewModel(isPlaying: false, inNote: 60, outNote: 55), // C | G
+            ButtonViewModel(inNote: 79, outNote: 81), // G | A
+            ButtonViewModel(inNote: 76, outNote: 77), // E | F
+            ButtonViewModel(inNote: 61, outNote: 63), // C | D
+            ButtonViewModel(inNote: 55, outNote: 59), // G | B
+            ButtonViewModel(inNote: 60, outNote: 55), // C | G
             
-            ButtonViewModel(isPlaying: false, inNote: 72, outNote: 71), // C | B
-            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 62), // E | D
-            ButtonViewModel(isPlaying: false, inNote: 67, outNote: 65), // G | F
-            ButtonViewModel(isPlaying: false, inNote: 60, outNote: 58), // C | A
-            ButtonViewModel(isPlaying: false, inNote: 64, outNote: 59), // E || B
+            ButtonViewModel(inNote: 72, outNote: 71), // C | B
+            ButtonViewModel(inNote: 64, outNote: 62), // E | D
+            ButtonViewModel(inNote: 67, outNote: 65), // G | F
+            ButtonViewModel(inNote: 60, outNote: 58), // C | A
+            ButtonViewModel(inNote: 64, outNote: 59), // E || B
             
-            ButtonViewModel(isPlaying: false, inNote: 73, outNote: 75), // C# | Eb
-            ButtonViewModel(isPlaying: false, inNote: 69, outNote: 67), // A | G
-            ButtonViewModel(isPlaying: false, inNote: 68, outNote: 70), // G# | Bb
-            ButtonViewModel(isPlaying: false, inNote: 61, outNote: 63), // C# | Eb
-            ButtonViewModel(isPlaying: false, inNote: 57, outNote: 53)] // A | F
+            ButtonViewModel(inNote: 73, outNote: 75), // C# | Eb
+            ButtonViewModel(inNote: 69, outNote: 67), // A | G
+            ButtonViewModel(inNote: 68, outNote: 70), // G# | Bb
+            ButtonViewModel(inNote: 61, outNote: 63), // C# | Eb
+            ButtonViewModel(inNote: 57, outNote: 53)] // A | F
         
-        fingerStatuses = [
-            FingerStatus(tip: leftIndexFingerTipModelEntity,
-                         knuckle: leftIndexFingerKnuckleModelEntity,
-                         isPlaying: false,
-                         note: 67,
-                         distanceToTrigger: 0.05),
-            FingerStatus(tip: leftMiddleFingerTipModelEntity,
-                         knuckle: leftMiddleFingerKnuckleModelEntity,
-                         isPlaying: false,
-                         note: 69,
-                         distanceToTrigger: 0.05),
-            FingerStatus(tip: leftRingFingerTipModelEntity,
-                         knuckle: leftRingFingerKnuckleModelEntity,
-                         isPlaying: false,
-                         note: 71,
-                         distanceToTrigger: 0.07),
-            FingerStatus(tip: leftLittleFingerTipModelEntity,
-                         knuckle: leftForearmWristModelEntity,
-                         isPlaying: false,
-                         note: 72,
-                         distanceToTrigger: 0.07),
-            FingerStatus(tip: rightIndexFingerTipModelEntity,
-                         knuckle: rightIndexFingerKnuckleModelEntity,
-                         isPlaying: false,
-                         note: 74,
-                         distanceToTrigger: 0.05),
-            FingerStatus(tip: rightMiddleFingerTipModelEntity,
-                         knuckle: rightMiddleFingerKnuckleModelEntity,
-                         isPlaying: false,
-                         note: 76,
-                         distanceToTrigger: 0.05),
-            FingerStatus(tip: rightRingFingerTipModelEntity,
-                         knuckle: rightRingFingerKnuckleModelEntity,
-                         isPlaying: false,
-                         note: 78,
-                         distanceToTrigger: 0.07),
-            FingerStatus(tip: rightLittleFingerTipModelEntity,
-                         knuckle: rightForearmWristModelEntity,
-                         isPlaying: false,
-                         note: 79,
-                         distanceToTrigger: 0.07)
-            
-        ]
-        // content.add(leftWristModelEntity)
         content.add(leftThumbKnuckleModelEntity)
         content.add(leftThumbIntermediateBaseModelEntity)
         content.add(leftThumbIntermediateTipModelEntity)
@@ -289,7 +265,6 @@ struct HandTrackingView: View {
                                         
                    if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
                         leftWristModelEntity = leftEntity
-                       // leftWristModelEntity?.components.set(PhysicsMotionComponent())
                         leftLastPosition = leftWristModelEntity?.position ?? SIMD3<Float>(0,0,0)
                     } else {
                         print("Left face not found")
@@ -297,7 +272,6 @@ struct HandTrackingView: View {
                     
                     if let rightEntity = immersiveContentEntity.findEntity(named: "Right_ConcertinaFace") {
                         rightWristModelEntity = rightEntity
-                       // rightWristModelEntity?.components.set(PhysicsMotionComponent())
                         rightLastPosition = rightWristModelEntity?.position ?? SIMD3<Float>(0,0,0)
                     } else {
                         print("Right face not found")
@@ -307,7 +281,6 @@ struct HandTrackingView: View {
                         let mesh = MeshResource.generateSphere(radius: 0.05)
                         let material = SimpleMaterial(color: .darkGray, isMetallic: false)
                         let sphere = ModelEntity(mesh: mesh, materials: [material])
-                        //sphere.components.set(CollisionComponent)
                         content.add(sphere)
                         spheres.append(sphere)
                     }
@@ -327,91 +300,82 @@ struct HandTrackingView: View {
                         collisionSubscriptions.append(content.subscribe(to: CollisionEvents.Began.self, on: button) { collisionEvent in
                             print("💥 Collision between \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name)")
                             concertina.noteOn(note: buttonViewModel.inNote)
+                            activeButtons.append(buttonViewModel)
                         })
                         
                         collisionSubscriptions.append(content.subscribe(to: CollisionEvents.Ended.self, on: button) { collisionEvent in
                             print("End Collision between \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name) 💥")
                             concertina.noteOff(note: buttonViewModel.inNote)
+                            if let index = activeButtons.firstIndex(of: buttonViewModel) {
+                                activeButtons.remove(at: index)
+                            }
                         })
                     }
                     
                     
-                    sceneUpdateSubscription = content.subscribe(to: SceneEvents.Update.self) {event in
+                    sceneUpdateSubscription = content.subscribe(to: SceneEvents.Update.self) { event in
                         if let leftWristModelEntity = leftWristModelEntity,
                            let rightWristModelEntity = rightWristModelEntity {
-//                            if areEntitiesMovingTowardsEachOther(entity1: leftWristModelEntity, entity2: rightWristModelEntity, deltaTime: event.deltaTime) {
-//                                print("moving towards each other")
-//                            }
-                            //  if !concertina.isPlaying {
-                            //  concertina.noteOn(note: 64)
                             
-                            let distance = distance(leftWristModelEntity.position, rightWristModelEntity.position)
+                            let currentDistance = distance(leftWristModelEntity.position, rightWristModelEntity.position)
                             
-                            if distance > 1.1 {
+                           /* if currentDistance > 1.4 {
                                 // Easter egg
                                 let path = Bundle.main.path(forResource: "Nearer_My_God_to_Thee_reverb_room", ofType:"m4a")!
                                 let url = URL(fileURLWithPath: path)
 
-//                                do {
-//                                    domsSong = try AVAudioPlayer(contentsOf: url)
-//                                    domsSong?.play()
-//                                } catch {
-//                                    print("couldn't load Dom's song")
-//                                }
-                            }
-                            
-                            updateFingerPositions()
-                            
-                            //   }
-                            /*print("YES MOVING TOWARDS") } else {
-                             // print("NOT MOVING TOWARDS")
-                             // concertina.isPlaying = false
-                             //  }*/
-                            
+                                do {
+                                    domsSong = try AVAudioPlayer(contentsOf: url)
+                                    domsSong?.play()
+                                } catch {
+                                    print("couldn't load Dom's song")
+                                }
+                            }*/
+                                                        
                             updateSpheresPosition(startEntity: leftWristModelEntity, endEntity: rightWristModelEntity)
                             leftLastPosition = leftWristModelEntity.position
                             rightLastPosition = rightWristModelEntity.position
+                            
+                            print("current distance: \(currentDistance)")
+
+                            let filteredDistance = kalmanFilter.update(measurement: currentDistance)
+                            
+                               // Determine if the distance is increasing or decreasing
+                               if filteredDistance < previousDistance {
+                                   bellowsDirection = .pushIn
+                                   print("Distance is getting smaller | filtered: \(filteredDistance)")
+                               } else if filteredDistance > previousDistance {
+                                   bellowsDirection = .pullOut
+                                   print("Distance is getting bigger | filtered: \(filteredDistance)")
+                               } else {
+                                   bellowsDirection = .stable
+                                   print("Distance is stable")
+                               }
+
+                               // Update the previous filtered distance for the next iteration
+                               previousDistance = filteredDistance
                         }
                     } as? any Cancellable
-                    /*
-                     let currentTime = Date().timeIntervalSinceReferenceDate
-                     
-                     // Calculate deltaTime as the difference between the current time and the last update time
-                     let deltaTime = currentTime - lastUpdateTime
-                     
-                     // Update the lastUpdateTime for the next frame
-                     lastUpdateTime = deltaTime
-                     
-                     print(lastUpdateTime)
-                     */
                 }
                 concertina.isPlaying = true
             } update: { content in
-                computeTransformHeartTracking()
+                updateHandTracking()
             }
         }.onAppear {
-            handTracking()
-        }
-    }
-    
-    func updateFingerPositions() {
-        for i in 0..<fingerStatuses.count {
-            
-//            if fingerStatuses[i].tip == leftLittleFingerTipModelEntity {
-//                print("little distance: \(distance(fingerStatuses[i].tip.position, fingerStatuses[i].knuckle.position))")
-//            }
-//            
-         /*   if distance(fingerStatuses[i].tip.position, fingerStatuses[i].knuckle.position) < fingerStatuses[i].distanceToTrigger {
-                if !fingerStatuses[i].isPlaying {
-                    concertina.noteOn(note: fingerStatuses[i].note)
-                    fingerStatuses[i].isPlaying = true
+            handTrackingSetup()
+        }.onChange(of: bellowsDirection) {
+            for buttonModel in activeButtons {
+                if bellowsDirection == .stable {
+                   // concertina.noteOff(note: buttonModel.inNote)
+                   // concertina.noteOff(note: buttonModel.outNote)
+                } else if bellowsDirection == .pushIn {
+                    concertina.noteOn(note: buttonModel.inNote)
+                    concertina.noteOff(note: buttonModel.outNote)
                 } else {
-                    // continue playing note
+                    concertina.noteOff(note: buttonModel.inNote)
+                    concertina.noteOn(note: buttonModel.outNote)
                 }
-            } else if fingerStatuses[i].isPlaying == true {
-                concertina.noteOff(note: fingerStatuses[i].note)
-                fingerStatuses[i].isPlaying = false
-            }*/
+            }
         }
     }
     
@@ -429,21 +393,7 @@ struct HandTrackingView: View {
         }
     }
     
-    func areEntitiesMovingTowardsEachOther(entity1: Entity,
-                                           entity2: Entity,
-                                           deltaTime: TimeInterval) -> Bool {
-        
-        // Calculate displacement vectors
-        let displacement1 = entity1.position - leftLastPosition;
-        let displacement2 = entity2.position - rightLastPosition;
-        
-        //  print(displacement1)
-        
-        // Check if the displacement vectors are in opposite directions
-        return (simd_dot(normalize(displacement1), normalize(displacement2)) < 0)
-    }
-    
-    func handTracking() {
+    func handTrackingSetup() {
         if HandTrackingProvider.isSupported {
             Task {
                 try await session.run([handTrackingProvider])
@@ -467,7 +417,7 @@ struct HandTrackingView: View {
         }
     }
     
-    func computeTransformHeartTracking() {
+    func updateHandTracking() {
         guard let leftHandAnchor = latestHandTracking.left,
               let rightHandAnchor = latestHandTracking.right,
               leftHandAnchor.isTracked, rightHandAnchor.isTracked else {
@@ -580,5 +530,13 @@ struct HandTrackingView: View {
             return Transform(matrix: t)
         }
         return beforeTransform
+    }
+    
+//    func lowPassFilter(currentValue: Float, previousValue: Float, alpha: Float) -> Float {
+//        return alpha * currentValue + (1 - alpha) * previousValue
+//    }
+    func movingAverageFilter(values: [Float], windowSize: Int) -> Float {
+        let sum = values.suffix(windowSize).reduce(0, +)
+        return sum / Float(windowSize)
     }
 }
