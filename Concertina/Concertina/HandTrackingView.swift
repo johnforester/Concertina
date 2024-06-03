@@ -337,9 +337,9 @@ struct HandTrackingView: View {
     }
     
     func updateSpheresPosition(startEntity: Entity, endEntity: Entity) {
-        let startPosition = startEntity.position(relativeTo: nil) + SIMD3(0.2,-0.1,-0.05)
+        let startPosition = startEntity.position(relativeTo: nil) + SIMD3(0.1,-0.1,-0.05)
         
-        let endPosition = endEntity.position(relativeTo: nil) + SIMD3(-0.2,-0.1,-0.05)
+        let endPosition = endEntity.position(relativeTo: nil) + SIMD3(-0.1,-0.1,-0.05)
         
         let vector = endPosition - startPosition
         let segmentLength = vector / Float(totalSpheres - 1)
@@ -384,9 +384,9 @@ struct HandTrackingView: View {
         if let leftWristModelEntity = leftConcertinaFace {
             // TODO optimize when scaling is done?
             leftWristModelEntity.transform = getTransform(leftHandAnchor, .wrist, leftWristModelEntity.transform)
-            leftWristModelEntity.scale = SIMD3(0.01, 0.01, 0.01)
+            leftWristModelEntity.scale = SIMD3(0.007, 0.007, 0.007)
             let pos = leftWristModelEntity.position
-            leftWristModelEntity.position = SIMD3(pos.x - 0.1, pos.y + 0.1, pos.z - 0.05)
+            leftWristModelEntity.position = SIMD3(pos.x - 0.005, pos.y + 0.1, pos.z - 0.05)
             
             var y: Float = 0.0
             var z: Float = 0.0
@@ -400,7 +400,7 @@ struct HandTrackingView: View {
                 button.transform = getTransform(leftHandAnchor, .wrist, leftWristModelEntity.transform)
                 
                 let pos = button.position
-                button.position = SIMD3(pos.x + 0.05, pos.y + 0.12 - y, pos.z - 0.12 + z)
+                button.position = SIMD3(pos.x + 0.05, pos.y + 0.12 - y, pos.z - 0.15 + z)
                 
                 row = row+1
                 
@@ -416,13 +416,13 @@ struct HandTrackingView: View {
         if let rightWristModelEntity = rightConcertinaFace {
             rightWristModelEntity.transform = getTransform(rightHandAnchor, .wrist, rightWristModelEntity.transform)
             // TODO optimize when scaling is done?
-            rightWristModelEntity.scale = SIMD3(0.01, 0.01, 0.01)
+            rightWristModelEntity.scale = SIMD3(0.007, 0.007, 0.007)
             
             rightWristModelEntity.transform.rotation *= simd_quatf(angle: .pi,
                                                                    axis: SIMD3<Float>(1, 0, 0))
             
             let pos = rightWristModelEntity.position
-            rightWristModelEntity.position = SIMD3(pos.x + 0.1, pos.y + 0.1, pos.z - 0.05)
+            rightWristModelEntity.position = SIMD3(pos.x + 0.005, pos.y + 0.1, pos.z - 0.05)
             
             var y: Float = 0.0
             var z: Float = 0.0
@@ -436,7 +436,7 @@ struct HandTrackingView: View {
                 button.transform = getTransform(rightHandAnchor, .wrist, rightWristModelEntity.transform)
                 
                 let pos = button.position
-                button.position = SIMD3(pos.x - 0.05, pos.y + 0.12 - y, pos.z - 0.12 + z)
+                button.position = SIMD3(pos.x - 0.05, pos.y + 0.12 - y, pos.z - 0.15 + z)
                 
                 row = row+1
                 
