@@ -63,8 +63,8 @@ struct HandTrackingView: View {
     
     @State var latestHandTracking: HandsUpdates = .init(left: nil, right: nil)
     
-    @State var leftWristModelEntity: Entity?
-    @State var rightWristModelEntity: Entity?
+    @State var leftConcertinaFace: Entity?
+    @State var rightConcertinaFace: Entity?
     
     @State var leftLastPosition = SIMD3<Float>(0,0,0)
     @State var rightLastPosition = SIMD3<Float>(0,0,0)
@@ -264,15 +264,15 @@ struct HandTrackingView: View {
                     content.add(immersiveContentEntity)
                                         
                    if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
-                        leftWristModelEntity = leftEntity
-                        leftLastPosition = leftWristModelEntity?.position ?? SIMD3<Float>(0,0,0)
+                        leftConcertinaFace = leftEntity
+                        leftLastPosition = leftConcertinaFace?.position ?? SIMD3<Float>(0,0,0)
                     } else {
                         print("Left face not found")
                     }
                     
                     if let rightEntity = immersiveContentEntity.findEntity(named: "Right_ConcertinaFace") {
-                        rightWristModelEntity = rightEntity
-                        rightLastPosition = rightWristModelEntity?.position ?? SIMD3<Float>(0,0,0)
+                        rightConcertinaFace = rightEntity
+                        rightLastPosition = rightConcertinaFace?.position ?? SIMD3<Float>(0,0,0)
                     } else {
                         print("Right face not found")
                     }
@@ -314,8 +314,8 @@ struct HandTrackingView: View {
                     
                     
                     sceneUpdateSubscription = content.subscribe(to: SceneEvents.Update.self) { event in
-                        if let leftWristModelEntity = leftWristModelEntity,
-                           let rightWristModelEntity = rightWristModelEntity {
+                        if let leftWristModelEntity = leftConcertinaFace,
+                           let rightWristModelEntity = rightConcertinaFace {
                             
                             let currentDistance = distance(leftWristModelEntity.position, rightWristModelEntity.position)
                             
@@ -424,7 +424,7 @@ struct HandTrackingView: View {
             return
         }
         
-        if let leftWristModelEntity = leftWristModelEntity {
+        if let leftWristModelEntity = leftConcertinaFace {
             // TODO optimize when scaling is done?
             leftWristModelEntity.transform = getTransform(leftHandAnchor, .wrist, leftWristModelEntity.transform)
             leftWristModelEntity.scale = SIMD3(0.01, 0.01, 0.01)
@@ -433,6 +433,7 @@ struct HandTrackingView: View {
             
             var y: Float = 0.0
             var z: Float = 0.0
+            var row = 0
             
             let leftButtonsCount = buttons.count / 2
             let buttonsPerRow = leftButtonsCount / 2
@@ -444,8 +445,10 @@ struct HandTrackingView: View {
                 let pos = button.position
                 button.position = SIMD3(pos.x + 0.05, pos.y + 0.12 - y, pos.z - 0.12 + z)
                 
-                if i == buttonsPerRow-1 {
-                    // start next row
+                row = row+1
+                
+                if row == buttonsPerRow {
+                    row = 0
                     z = 0.05
                     y = 0.0
                 }
@@ -453,7 +456,7 @@ struct HandTrackingView: View {
             }
         }
         
-        if let rightWristModelEntity = rightWristModelEntity {
+        if let rightWristModelEntity = rightConcertinaFace {
             rightWristModelEntity.transform = getTransform(rightHandAnchor, .wrist, rightWristModelEntity.transform)
             // TODO optimize when scaling is done?
             rightWristModelEntity.scale = SIMD3(0.01, 0.01, 0.01)
@@ -463,6 +466,31 @@ struct HandTrackingView: View {
             
             let pos = rightWristModelEntity.position
             rightWristModelEntity.position = SIMD3(pos.x + 0.1, pos.y + 0.1, pos.z - 0.05)
+            
+            var y: Float = 0.0
+            var z: Float = 0.0
+            var row = 0
+            
+            let rightButtonsCount = buttons.count / 2
+            let buttonsPerRow = rightButtonsCount / 2
+            
+            for i in rightButtonsCount..<buttons.count {
+                let button = buttons[i]
+                button.transform = getTransform(rightHandAnchor, .wrist, rightWristModelEntity.transform)
+                
+                let pos = button.position
+                button.position = SIMD3(pos.x - 0.05, pos.y + 0.12 - y, pos.z - 0.12 + z)
+                
+                row = row+1
+                
+                if row == buttonsPerRow {
+                    row = 0
+                    // start next row
+                    z = 0.05
+                    y = 0.0
+                }
+                y = y + 0.03
+            }
         }
         
         leftThumbKnuckleModelEntity.transform = getTransform(leftHandAnchor, .thumbKnuckle, leftThumbKnuckleModelEntity.transform)
