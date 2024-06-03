@@ -16,6 +16,7 @@ struct ContentView: View {
 
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
+    @Environment(\.openWindow) var openWindow
 
     var body: some View {
         let synth = ConcertinaSynth()
@@ -46,6 +47,7 @@ struct ContentView: View {
                     switch await openImmersiveSpace(id: "ImmersiveSpace") {
                     case .opened:
                         immersiveSpaceIsShown = true
+                        openWindow(id: "ButtonView")
                     case .error, .userCancelled:
                         fallthrough
                     @unknown default:

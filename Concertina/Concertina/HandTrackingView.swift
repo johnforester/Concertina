@@ -34,12 +34,6 @@ class KalmanFilter {
     }
 }
 
-enum BellowsDirection {
-    case stable
-    case pushIn
-    case pullOut
-}
-
 struct HandTrackingView: View {
     @StateObject var concertina = ConcertinaSynth()
     
@@ -54,11 +48,10 @@ struct HandTrackingView: View {
     let totalSpheres = 10
     
     @State var buttons: [Entity] = []
-    @State var buttonViewModels: [ButtonViewModel]
-    @State var activeButtons = [ButtonViewModel]()
+    
+    @Bindable var viewModel: ConcertinaViewModel
     
     @State var previousDistance: Float = 0.0
-    @State var bellowsDirection = BellowsDirection.stable
     let kalmanFilter = KalmanFilter()
     
     @State var latestHandTracking: HandsUpdates = .init(left: nil, right: nil)
@@ -147,50 +140,12 @@ struct HandTrackingView: View {
     @State var rightForearmWristModelEntity = Entity()
     @State var rightForearmArmModelEntity = Entity()
     
-    struct ButtonSideModel {
-        var rowModels = [ButtonRowModel]()
-    }
-    
-    struct ButtonRowModel {
-        var buttonViewModels = [ButtonViewModel]()
-    }
-    
-    struct ButtonViewModel: Equatable {
-        var inNote: MIDINoteNumber
-        var outNote: MIDINoteNumber
-    }
-    
     struct HandsUpdates {
         var left: HandAnchor?
         var right: HandAnchor?
     }
 
     fileprivate func addHandModelEntities(_ content: RealityViewContent) {
-        buttonViewModels =  [
-            ButtonViewModel(inNote: 80, outNote: 82), // G# | Bb
-            ButtonViewModel(inNote: 81, outNote: 79), // A | G
-            ButtonViewModel(inNote: 73, outNote: 75), // C# | Eb
-            ButtonViewModel(inNote: 57, outNote: 58), // A | Bb
-            ButtonViewModel(inNote: 64, outNote: 65), // E | F
-            
-            ButtonViewModel(inNote: 79, outNote: 81), // G | A
-            ButtonViewModel(inNote: 76, outNote: 77), // E | F
-            ButtonViewModel(inNote: 61, outNote: 63), // C | D
-            ButtonViewModel(inNote: 55, outNote: 59), // G | B
-            ButtonViewModel(inNote: 60, outNote: 55), // C | G
-            
-            ButtonViewModel(inNote: 72, outNote: 71), // C | B
-            ButtonViewModel(inNote: 64, outNote: 62), // E | D
-            ButtonViewModel(inNote: 67, outNote: 65), // G | F
-            ButtonViewModel(inNote: 60, outNote: 58), // C | A
-            ButtonViewModel(inNote: 64, outNote: 59), // E || B
-            
-            ButtonViewModel(inNote: 73, outNote: 75), // C# | Eb
-            ButtonViewModel(inNote: 69, outNote: 67), // A | G
-            ButtonViewModel(inNote: 68, outNote: 70), // G# | Bb
-            ButtonViewModel(inNote: 61, outNote: 63), // C# | Eb
-            ButtonViewModel(inNote: 57, outNote: 53)] // A | F
-        
         content.add(leftThumbKnuckleModelEntity)
         content.add(leftThumbIntermediateBaseModelEntity)
         content.add(leftThumbIntermediateTipModelEntity)
@@ -287,7 +242,7 @@ struct HandTrackingView: View {
                     
                     collisionSubscriptions.removeAll()
                     
-                    for buttonViewModel in buttonViewModels {
+                    for buttonViewModel in viewModel.buttonViewModels {
                         let mesh = MeshResource.generateCylinder(height: 0.01, radius: 0.01)
                         let material = SimpleMaterial(color: .white, isMetallic: false)
                         let button = ModelEntity(mesh: mesh,
@@ -300,14 +255,14 @@ struct HandTrackingView: View {
                         collisionSubscriptions.append(content.subscribe(to: CollisionEvents.Began.self, on: button) { collisionEvent in
                             print("💥 Collision between \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name)")
                             concertina.noteOn(note: buttonViewModel.inNote)
-                            activeButtons.append(buttonViewModel)
+                            viewModel.activeButtons.append(buttonViewModel)
                         })
                         
                         collisionSubscriptions.append(content.subscribe(to: CollisionEvents.Ended.self, on: button) { collisionEvent in
                             print("End Collision between \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name) 💥")
                             concertina.noteOff(note: buttonViewModel.inNote)
-                            if let index = activeButtons.firstIndex(of: buttonViewModel) {
-                                activeButtons.remove(at: index)
+                            if let index = viewModel.activeButtons.firstIndex(of: buttonViewModel) {
+                                viewModel.activeButtons.remove(at: index)
                             }
                         })
                     }
@@ -342,13 +297,13 @@ struct HandTrackingView: View {
                             
                                // Determine if the distance is increasing or decreasing
                                if filteredDistance < previousDistance {
-                                   bellowsDirection = .pushIn
+                                   viewModel.bellowsDirection = .pushIn
                                    print("Distance is getting smaller | filtered: \(filteredDistance)")
                                } else if filteredDistance > previousDistance {
-                                   bellowsDirection = .pullOut
+                                   viewModel.bellowsDirection = .pullOut
                                    print("Distance is getting bigger | filtered: \(filteredDistance)")
                                } else {
-                                   bellowsDirection = .stable
+                                   viewModel.bellowsDirection = .stable
                                    print("Distance is stable")
                                }
 
@@ -363,12 +318,14 @@ struct HandTrackingView: View {
             }
         }.onAppear {
             handTrackingSetup()
-        }.onChange(of: bellowsDirection) {
-            for buttonModel in activeButtons {
-                if bellowsDirection == .stable {
+        }.onChange(of: viewModel.bellowsDirection) {
+            for buttonModel in viewModel.activeButtons {
+                if viewModel.bellowsDirection == .stable {
+                    // TODO figure out better way to determing if not moving, this is not accurate enough
+                    // to turn off notes reliably
                    // concertina.noteOff(note: buttonModel.inNote)
                    // concertina.noteOff(note: buttonModel.outNote)
-                } else if bellowsDirection == .pushIn {
+                } else if viewModel.bellowsDirection == .pushIn {
                     concertina.noteOn(note: buttonModel.inNote)
                     concertina.noteOff(note: buttonModel.outNote)
                 } else {

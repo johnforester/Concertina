@@ -24,6 +24,8 @@
 		79E41B482BB919E100E1379B /* Gb-v2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B372BB919E000E1379B /* Gb-v2.wav */; };
 		79E41B492BB919E100E1379B /* Gb.wav in Resources */ = {isa = PBXBuildFile; fileRef = 79E41B382BB919E000E1379B /* Gb.wav */; };
 		7A45E4712C0C121900ACB5E1 /* ConcertinaFace.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 7A45E4702C0C121900ACB5E1 /* ConcertinaFace.usdz */; };
+		7A45E4732C0D626800ACB5E1 /* ConcertinaButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A45E4722C0D626800ACB5E1 /* ConcertinaButtonsView.swift */; };
+		7A45E4752C0D631500ACB5E1 /* ButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A45E4742C0D631500ACB5E1 /* ButtonViewModel.swift */; };
 		99777ACB2BB8EDC300271672 /* DunneAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 99777ACA2BB8EDC300271672 /* DunneAudioKit */; };
 		99777ACD2BB9EC1500271672 /* Nearer_My_God_to_Thee_reverb_room.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 99777ACC2BB9EC1400271672 /* Nearer_My_God_to_Thee_reverb_room.m4a */; };
 		998EB0BD2BB7E76D00B836EA /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 998EB0BC2BB7E76D00B836EA /* RealityKitContent */; };
@@ -69,6 +71,8 @@
 		79E41B372BB919E000E1379B /* Gb-v2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Gb-v2.wav"; sourceTree = "<group>"; };
 		79E41B382BB919E000E1379B /* Gb.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Gb.wav; sourceTree = "<group>"; };
 		7A45E4702C0C121900ACB5E1 /* ConcertinaFace.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = ConcertinaFace.usdz; path = Packages/RealityKitContent/Sources/RealityKitContent/RealityKitContent.rkassets/ConcertinaFace.usdz; sourceTree = SOURCE_ROOT; };
+		7A45E4722C0D626800ACB5E1 /* ConcertinaButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertinaButtonsView.swift; sourceTree = "<group>"; };
+		7A45E4742C0D631500ACB5E1 /* ButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewModel.swift; sourceTree = "<group>"; };
 		99777ACC2BB9EC1400271672 /* Nearer_My_God_to_Thee_reverb_room.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Nearer_My_God_to_Thee_reverb_room.m4a; sourceTree = "<group>"; };
 		998EB0B72BB7E76D00B836EA /* Concertina.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Concertina.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		998EB0BB2BB7E76D00B836EA /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
@@ -166,6 +170,8 @@
 				998EB0C62BB7E76E00B836EA /* Assets.xcassets */,
 				998EB0CB2BB7E76E00B836EA /* Info.plist */,
 				998EB0C82BB7E76E00B836EA /* Preview Content */,
+				7A45E4722C0D626800ACB5E1 /* ConcertinaButtonsView.swift */,
+				7A45E4742C0D631500ACB5E1 /* ButtonViewModel.swift */,
 			);
 			path = Concertina;
 			sourceTree = "<group>";
@@ -337,7 +343,9 @@
 				998EB0C12BB7E76D00B836EA /* ContentView.swift in Sources */,
 				998EB0BF2BB7E76D00B836EA /* ConcertinaApp.swift in Sources */,
 				998EB0C32BB7E76D00B836EA /* ImmersiveView.swift in Sources */,
+				7A45E4732C0D626800ACB5E1 /* ConcertinaButtonsView.swift in Sources */,
 				998EB0EB2BB8808700B836EA /* HandTrackingView.swift in Sources */,
+				7A45E4752C0D631500ACB5E1 /* ButtonViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
