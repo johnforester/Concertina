@@ -12,7 +12,6 @@ import RealityKitContent
 struct ContentView: View {
 
     @State private var showImmersiveSpace = false
-    @State private var immersiveSpaceIsShown = false
 
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
@@ -32,13 +31,15 @@ struct ContentView: View {
                 .padding(24)
                 .glassBackgroundEffect()
             
-            Button("Play test sound") {
+            
+            
+            /*Button("Play test sound") {
                 synth.playTest()
             }
             
             Button("Stop test sound") {
                 synth.stopTest()
-            }
+            }*/
         }
         .padding()
         .onChange(of: showImmersiveSpace) { _, newValue in
@@ -46,17 +47,14 @@ struct ContentView: View {
                 if newValue {
                     switch await openImmersiveSpace(id: "ImmersiveSpace") {
                     case .opened:
-                        immersiveSpaceIsShown = true
                         openWindow(id: "ButtonView")
                     case .error, .userCancelled:
                         fallthrough
                     @unknown default:
-                        immersiveSpaceIsShown = false
                         showImmersiveSpace = false
                     }
-                } else if immersiveSpaceIsShown {
+                } else {
                     await dismissImmersiveSpace()
-                    immersiveSpaceIsShown = false
                 }
             }
         }

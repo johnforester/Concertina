@@ -14,22 +14,23 @@ import Combine
 import AudioKit
 import AVFAudio
 
+// Filter for noise in hand positions to get cleaner/more accurate push in and pull out concertina bellow
 class KalmanFilter {
     var Q: Float = 0.0001  // Process noise covariance
     var R: Float = 0.1     // Measurement noise covariance
     var x: Float = 0.0     // Value
     var P: Float = 1.0     // Estimation error covariance
     var K: Float = 0.0     // Kalman gain
-
+    
     func update(measurement: Float) -> Float {
         // Prediction update
         P = P + Q
-
+        
         // Measurement update
         K = P / (P + R)
         x = x + K * (measurement - x)
         P = (1 - K) * P
-
+        
         return x
     }
 }
@@ -39,11 +40,11 @@ struct HandTrackingView: View {
     
     @State private var sceneUpdateSubscription : Cancellable? = nil
     @State private var collisionSubscriptions = [EventSubscription]()
-
+    
     let session = ARKitSession()
     var handTrackingProvider = HandTrackingProvider()
     @State var domsSong: AVAudioPlayer?
-
+    
     @State var spheres: [Entity] = []
     let totalSpheres = 10
     
@@ -62,143 +63,18 @@ struct HandTrackingView: View {
     @State var leftLastPosition = SIMD3<Float>(0,0,0)
     @State var rightLastPosition = SIMD3<Float>(0,0,0)
     
-    @State var leftThumbKnuckleModelEntity = Entity()
-    @State var leftThumbIntermediateBaseModelEntity = Entity()
-    @State var leftThumbIntermediateTipModelEntity = Entity()
-    @State var leftThumbTipModelEntity = Entity()
-    @State var leftIndexFingerMetacarpalModelEntity = Entity()
-    @State var leftIndexFingerKnuckleModelEntity = Entity()
-    @State var leftIndexFingerIntermediateBaseModelEntity = Entity()
-    @State var leftIndexFingerIntermediateTipModelEntity = Entity()
-    @State var leftIndexFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.01),
-        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
-      )
-    @State var leftMiddleFingerMetacarpalModelEntity = Entity()
-    @State var leftMiddleFingerKnuckleModelEntity = Entity()
-    @State var leftMiddleFingerIntermediateBaseModelEntity = Entity()
-    @State var leftMiddleFingerIntermediateTipModelEntity = Entity()
-    @State var leftMiddleFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.01),
-        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
-      )
-    @State var leftRingFingerMetacarpalModelEntity = Entity()
-    @State var leftRingFingerKnuckleModelEntity = Entity()
-    @State var leftRingFingerIntermediateBaseModelEntity = Entity()
-    @State var leftRingFingerIntermediateTipModelEntity = Entity()
-    @State var leftRingFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.01),
-        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
-      )
-    @State var leftLittleFingerMetacarpalModelEntity = Entity()
-    @State var leftLittleFingerKnuckleModelEntity = Entity()
-    @State var leftLittleFingerIntermediateBaseModelEntity = Entity()
-    @State var leftLittleFingerIntermediateTipModelEntity = Entity()
-    @State var leftLittleFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.01),
-        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
-      )
-    @State var leftForearmWristModelEntity = Entity()
-    @State var leftForearmArmModelEntity = Entity()
-    
-    @State var rightThumbKnuckleModelEntity = Entity()
-    @State var rightThumbIntermediateBaseModelEntity = Entity()
-    @State var rightThumbIntermediateTipModelEntity = Entity()
-    @State var rightThumbTipModelEntity = Entity()
-    @State var rightIndexFingerMetacarpalModelEntity = Entity()
-    @State var rightIndexFingerKnuckleModelEntity = Entity()
-    @State var rightIndexFingerIntermediateBaseModelEntity = Entity()
-    @State var rightIndexFingerIntermediateTipModelEntity = Entity()
-    @State var rightIndexFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.01),
-        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
-      )
-    @State var rightMiddleFingerMetacarpalModelEntity = Entity()
-    @State var rightMiddleFingerKnuckleModelEntity = Entity()
-    @State var rightMiddleFingerIntermediateBaseModelEntity = Entity()
-    @State var rightMiddleFingerIntermediateTipModelEntity = Entity()
-    @State var rightMiddleFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.01),
-        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
-      )
-    @State var rightRingFingerMetacarpalModelEntity = Entity()
-    @State var rightRingFingerKnuckleModelEntity = Entity()
-    @State var rightRingFingerIntermediateBaseModelEntity = Entity()
-    @State var rightRingFingerIntermediateTipModelEntity = Entity()
-    @State var rightRingFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.01),
-        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
-      )
-    @State var rightLittleFingerMetacarpalModelEntity = Entity()
-    @State var rightLittleFingerKnuckleModelEntity = Entity()
-    @State var rightLittleFingerIntermediateBaseModelEntity = Entity()
-    @State var rightLittleFingerIntermediateTipModelEntity = Entity()
-    @State var rightLittleFingerTipModelEntity = ModelEntity(
-        mesh: .generateSphere(radius: 0.01),
-        materials: [SimpleMaterial(color: .cyan, isMetallic: false)]
-      )
-    @State var rightForearmWristModelEntity = Entity()
-    @State var rightForearmArmModelEntity = Entity()
+    @State var leftIndexFingerTipModelEntity =  fingerTipEntity(false)
+    @State var leftMiddleFingerTipModelEntity = fingerTipEntity(false)
+    @State var leftRingFingerTipModelEntity = fingerTipEntity(false)
+    @State var leftLittleFingerTipModelEntity = fingerTipEntity(false)
+    @State var rightIndexFingerTipModelEntity = fingerTipEntity(false)
+    @State var rightMiddleFingerTipModelEntity = fingerTipEntity(false)
+    @State var rightRingFingerTipModelEntity = fingerTipEntity(false)
+    @State var rightLittleFingerTipModelEntity = fingerTipEntity(false)
     
     struct HandsUpdates {
         var left: HandAnchor?
         var right: HandAnchor?
-    }
-
-    fileprivate func addHandModelEntities(_ content: RealityViewContent) {
-        content.add(leftThumbKnuckleModelEntity)
-        content.add(leftThumbIntermediateBaseModelEntity)
-        content.add(leftThumbIntermediateTipModelEntity)
-        content.add(leftThumbTipModelEntity)
-        content.add(leftIndexFingerMetacarpalModelEntity)
-        content.add(leftIndexFingerKnuckleModelEntity)
-        content.add(leftIndexFingerIntermediateBaseModelEntity)
-        content.add(leftIndexFingerIntermediateTipModelEntity)
-        content.add(leftIndexFingerTipModelEntity)
-        content.add(leftMiddleFingerMetacarpalModelEntity)
-        content.add(leftMiddleFingerKnuckleModelEntity)
-        content.add(leftMiddleFingerIntermediateBaseModelEntity)
-        content.add(leftMiddleFingerIntermediateTipModelEntity)
-        content.add(leftMiddleFingerTipModelEntity)
-        content.add(leftRingFingerMetacarpalModelEntity)
-        content.add(leftRingFingerKnuckleModelEntity)
-        content.add(leftRingFingerIntermediateBaseModelEntity)
-        content.add(leftRingFingerIntermediateTipModelEntity)
-        content.add(leftRingFingerTipModelEntity)
-        content.add(leftLittleFingerMetacarpalModelEntity)
-        content.add(leftLittleFingerKnuckleModelEntity)
-        content.add(leftLittleFingerIntermediateBaseModelEntity)
-        content.add(leftLittleFingerIntermediateTipModelEntity)
-        content.add(leftLittleFingerTipModelEntity)
-        content.add(leftForearmWristModelEntity)
-        content.add(leftForearmArmModelEntity)
-        
-        content.add(rightThumbKnuckleModelEntity)
-        content.add(rightThumbIntermediateBaseModelEntity)
-        content.add(rightThumbIntermediateTipModelEntity)
-        content.add(rightThumbTipModelEntity)
-        content.add(rightIndexFingerMetacarpalModelEntity)
-        content.add(rightIndexFingerKnuckleModelEntity)
-        content.add(rightIndexFingerIntermediateBaseModelEntity)
-        content.add(rightIndexFingerIntermediateTipModelEntity)
-        content.add(rightIndexFingerTipModelEntity)
-        content.add(rightMiddleFingerMetacarpalModelEntity)
-        content.add(rightMiddleFingerKnuckleModelEntity)
-        content.add(rightMiddleFingerIntermediateBaseModelEntity)
-        content.add(rightMiddleFingerIntermediateTipModelEntity)
-        content.add(rightMiddleFingerTipModelEntity)
-        content.add(rightRingFingerMetacarpalModelEntity)
-        content.add(rightRingFingerKnuckleModelEntity)
-        content.add(rightRingFingerIntermediateBaseModelEntity)
-        content.add(rightRingFingerIntermediateTipModelEntity)
-        content.add(rightRingFingerTipModelEntity)
-        content.add(rightLittleFingerMetacarpalModelEntity)
-        content.add(rightLittleFingerKnuckleModelEntity)
-        content.add(rightLittleFingerIntermediateBaseModelEntity)
-        content.add(rightLittleFingerIntermediateTipModelEntity)
-        content.add(rightLittleFingerTipModelEntity)
-        content.add(rightForearmWristModelEntity)
-        content.add(rightForearmArmModelEntity)
     }
     
     var body: some View {
@@ -206,19 +82,10 @@ struct HandTrackingView: View {
             RealityView { content in
                 addHandModelEntities(content)
                 
-                leftIndexFingerTipModelEntity.generateCollisionShapes(recursive: true)
-                leftMiddleFingerTipModelEntity.generateCollisionShapes(recursive: true)
-                leftRingFingerTipModelEntity.generateCollisionShapes(recursive: true)
-                leftLittleFingerTipModelEntity.generateCollisionShapes(recursive: true)
-                rightIndexFingerTipModelEntity.generateCollisionShapes(recursive: true)
-                rightMiddleFingerTipModelEntity.generateCollisionShapes(recursive: true)
-                rightRingFingerTipModelEntity.generateCollisionShapes(recursive: true)
-                rightLittleFingerTipModelEntity.generateCollisionShapes(recursive: true)
-                
                 if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
                     content.add(immersiveContentEntity)
-                                        
-                   if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
+                    
+                    if let leftEntity = immersiveContentEntity.findEntity(named: "Left_ConcertinaFace") {
                         leftConcertinaFace = leftEntity
                         leftLastPosition = leftConcertinaFace?.position ?? SIMD3<Float>(0,0,0)
                     } else {
@@ -253,16 +120,19 @@ struct HandTrackingView: View {
                         buttons.append(button)
                         
                         collisionSubscriptions.append(content.subscribe(to: CollisionEvents.Began.self, on: button) { collisionEvent in
-                            print("💥 Collision between \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name)")
+                            // print("💥 Collision between \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name)")
                             concertina.noteOn(note: buttonViewModel.inNote)
                             viewModel.activeButtons.append(buttonViewModel)
+                            button.components.set(ModelComponent(mesh: mesh, materials: [HandTrackingView.emissiveMaterial()]))
+                        
                         })
                         
                         collisionSubscriptions.append(content.subscribe(to: CollisionEvents.Ended.self, on: button) { collisionEvent in
-                            print("End Collision between \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name) 💥")
+                            // print("End Collision between \(collisionEvent.entityA.name) and \(collisionEvent.entityB.name) 💥")
                             concertina.noteOff(note: buttonViewModel.inNote)
                             if let index = viewModel.activeButtons.firstIndex(of: buttonViewModel) {
                                 viewModel.activeButtons.remove(at: index)
+                                button.components.set(ModelComponent(mesh: mesh, materials: [material]))
                             }
                         })
                     }
@@ -274,11 +144,13 @@ struct HandTrackingView: View {
                             
                             let currentDistance = distance(leftWristModelEntity.position, rightWristModelEntity.position)
                             
-                           /* if currentDistance > 1.4 {
+                           /* if let domsSong = domsSong, domsSong.isPlaying {
+                                print("Dom's song is already playing")
+                            } else if currentDistance > 1.4 {
                                 // Easter egg
                                 let path = Bundle.main.path(forResource: "Nearer_My_God_to_Thee_reverb_room", ofType:"m4a")!
                                 let url = URL(fileURLWithPath: path)
-
+                                
                                 do {
                                     domsSong = try AVAudioPlayer(contentsOf: url)
                                     domsSong?.play()
@@ -286,33 +158,30 @@ struct HandTrackingView: View {
                                     print("couldn't load Dom's song")
                                 }
                             }*/
-                                                        
+                            
                             updateSpheresPosition(startEntity: leftWristModelEntity, endEntity: rightWristModelEntity)
                             leftLastPosition = leftWristModelEntity.position
                             rightLastPosition = rightWristModelEntity.position
                             
-                            print("current distance: \(currentDistance)")
-
                             let filteredDistance = kalmanFilter.update(measurement: currentDistance)
                             
-                               // Determine if the distance is increasing or decreasing
-                               if filteredDistance < previousDistance {
-                                   viewModel.bellowsDirection = .pushIn
-                                   print("Distance is getting smaller | filtered: \(filteredDistance)")
-                               } else if filteredDistance > previousDistance {
-                                   viewModel.bellowsDirection = .pullOut
-                                   print("Distance is getting bigger | filtered: \(filteredDistance)")
-                               } else {
-                                   viewModel.bellowsDirection = .stable
-                                   print("Distance is stable")
-                               }
-
-                               // Update the previous filtered distance for the next iteration
-                               previousDistance = filteredDistance
+                            // Determine if the distance is increasing or decreasing
+                            if filteredDistance < previousDistance {
+                                viewModel.bellowsDirection = .pushIn
+                                //  print("Distance is getting smaller | filtered: \(filteredDistance)")
+                            } else if filteredDistance > previousDistance {
+                                viewModel.bellowsDirection = .pullOut
+                                // print("Distance is getting bigger | filtered: \(filteredDistance)")
+                            } else {
+                                viewModel.bellowsDirection = .stable
+                                // print("Distance is stable")
+                            }
+                            
+                            // Update the previous filtered distance for the next iteration
+                            previousDistance = filteredDistance
                         }
                     } as? any Cancellable
                 }
-                concertina.isPlaying = true
             } update: { content in
                 updateHandTracking()
             }
@@ -323,8 +192,8 @@ struct HandTrackingView: View {
                 if viewModel.bellowsDirection == .stable {
                     // TODO figure out better way to determing if not moving, this is not accurate enough
                     // to turn off notes reliably
-                   // concertina.noteOff(note: buttonModel.inNote)
-                   // concertina.noteOff(note: buttonModel.outNote)
+                    // concertina.noteOff(note: buttonModel.inNote)
+                    // concertina.noteOff(note: buttonModel.outNote)
                 } else if viewModel.bellowsDirection == .pushIn {
                     concertina.noteOn(note: buttonModel.inNote)
                     concertina.noteOff(note: buttonModel.outNote)
@@ -334,6 +203,17 @@ struct HandTrackingView: View {
                 }
             }
         }
+    }
+    
+    fileprivate func addHandModelEntities(_ content: RealityViewContent) {
+        content.add(leftIndexFingerTipModelEntity)
+        content.add(leftMiddleFingerTipModelEntity)
+        content.add(leftRingFingerTipModelEntity)
+        content.add(leftLittleFingerTipModelEntity)
+        content.add(rightIndexFingerTipModelEntity)
+        content.add(rightMiddleFingerTipModelEntity)
+        content.add(rightRingFingerTipModelEntity)
+        content.add(rightLittleFingerTipModelEntity)
     }
     
     func updateSpheresPosition(startEntity: Entity, endEntity: Entity) {
@@ -450,62 +330,15 @@ struct HandTrackingView: View {
             }
         }
         
-        leftThumbKnuckleModelEntity.transform = getTransform(leftHandAnchor, .thumbKnuckle, leftThumbKnuckleModelEntity.transform)
-        leftThumbIntermediateBaseModelEntity.transform = getTransform(leftHandAnchor, .thumbIntermediateBase, leftThumbIntermediateBaseModelEntity.transform)
-        leftThumbIntermediateTipModelEntity.transform = getTransform(leftHandAnchor, .thumbIntermediateTip, leftThumbIntermediateTipModelEntity.transform)
-        leftThumbTipModelEntity.transform = getTransform(leftHandAnchor, .thumbTip, leftThumbTipModelEntity.transform)
-        leftIndexFingerMetacarpalModelEntity.transform = getTransform(leftHandAnchor, .indexFingerMetacarpal, leftIndexFingerMetacarpalModelEntity.transform)
-        leftIndexFingerKnuckleModelEntity.transform = getTransform(leftHandAnchor, .indexFingerKnuckle, leftMiddleFingerKnuckleModelEntity.transform)
-        leftIndexFingerIntermediateBaseModelEntity.transform = getTransform(leftHandAnchor, .indexFingerIntermediateBase, leftIndexFingerIntermediateBaseModelEntity.transform)
-        leftIndexFingerIntermediateTipModelEntity.transform = getTransform(leftHandAnchor, .indexFingerIntermediateTip, leftIndexFingerIntermediateTipModelEntity.transform)
-        
-        // print("left index: \(leftIndexFingerTipModelEntity.position.z)")
-        
         leftIndexFingerTipModelEntity.transform = getTransform(leftHandAnchor, .indexFingerTip, leftIndexFingerTipModelEntity.transform)
-        leftMiddleFingerMetacarpalModelEntity.transform = getTransform(leftHandAnchor, .middleFingerMetacarpal, leftMiddleFingerMetacarpalModelEntity.transform)
-        leftMiddleFingerKnuckleModelEntity.transform = getTransform(leftHandAnchor, .middleFingerKnuckle,leftMiddleFingerKnuckleModelEntity.transform)
-        leftMiddleFingerIntermediateBaseModelEntity.transform = getTransform(leftHandAnchor, .middleFingerIntermediateBase,leftMiddleFingerIntermediateBaseModelEntity.transform)
-        leftMiddleFingerIntermediateTipModelEntity.transform = getTransform(leftHandAnchor, .middleFingerIntermediateTip,leftMiddleFingerIntermediateTipModelEntity.transform)
         leftMiddleFingerTipModelEntity.transform = getTransform(leftHandAnchor, .middleFingerTip,leftMiddleFingerTipModelEntity.transform)
-        leftRingFingerMetacarpalModelEntity.transform = getTransform(leftHandAnchor, .ringFingerMetacarpal,leftRingFingerMetacarpalModelEntity.transform)
-        leftRingFingerKnuckleModelEntity.transform = getTransform(leftHandAnchor, .ringFingerKnuckle,leftRingFingerKnuckleModelEntity.transform)
-        leftRingFingerIntermediateBaseModelEntity.transform = getTransform(leftHandAnchor, .ringFingerIntermediateBase,leftRingFingerIntermediateBaseModelEntity.transform)
-        leftRingFingerIntermediateTipModelEntity.transform = getTransform(leftHandAnchor, .ringFingerIntermediateTip,leftRingFingerIntermediateTipModelEntity.transform)
         leftRingFingerTipModelEntity.transform = getTransform(leftHandAnchor, .ringFingerTip,leftRingFingerTipModelEntity.transform)
-        leftLittleFingerMetacarpalModelEntity.transform = getTransform(leftHandAnchor, .littleFingerMetacarpal,leftLittleFingerMetacarpalModelEntity.transform)
-        leftLittleFingerKnuckleModelEntity.transform = getTransform(leftHandAnchor, .littleFingerKnuckle,leftLittleFingerKnuckleModelEntity.transform)
-        leftLittleFingerIntermediateBaseModelEntity.transform = getTransform(leftHandAnchor, .littleFingerIntermediateBase, leftLittleFingerIntermediateBaseModelEntity.transform)
-        leftLittleFingerIntermediateTipModelEntity.transform = getTransform(leftHandAnchor, .littleFingerIntermediateTip,leftLittleFingerIntermediateTipModelEntity.transform)
         leftLittleFingerTipModelEntity.transform = getTransform(leftHandAnchor, .littleFingerTip,leftLittleFingerTipModelEntity.transform)
-        leftForearmWristModelEntity.transform = getTransform(leftHandAnchor, .forearmWrist,leftForearmWristModelEntity.transform)
-        leftForearmArmModelEntity.transform = getTransform(leftHandAnchor, .forearmArm,leftForearmArmModelEntity.transform)
         
-        rightThumbKnuckleModelEntity.transform = getTransform(rightHandAnchor, .thumbKnuckle,rightThumbKnuckleModelEntity.transform)
-        rightThumbIntermediateBaseModelEntity.transform = getTransform(rightHandAnchor, .thumbIntermediateBase,rightThumbIntermediateBaseModelEntity.transform)
-        rightThumbIntermediateTipModelEntity.transform = getTransform(rightHandAnchor, .thumbIntermediateTip,rightThumbIntermediateTipModelEntity.transform)
-        rightThumbTipModelEntity.transform = getTransform(rightHandAnchor, .thumbTip,rightThumbTipModelEntity.transform)
-        rightIndexFingerMetacarpalModelEntity.transform = getTransform(rightHandAnchor, .indexFingerMetacarpal,rightIndexFingerMetacarpalModelEntity.transform)
-        rightIndexFingerKnuckleModelEntity.transform = getTransform(rightHandAnchor, .indexFingerKnuckle,rightIndexFingerKnuckleModelEntity.transform)
-        rightIndexFingerIntermediateBaseModelEntity.transform = getTransform(rightHandAnchor, .indexFingerIntermediateBase,rightIndexFingerIntermediateBaseModelEntity.transform)
-        rightIndexFingerIntermediateTipModelEntity.transform = getTransform(rightHandAnchor, .indexFingerIntermediateTip,rightIndexFingerIntermediateTipModelEntity.transform)
         rightIndexFingerTipModelEntity.transform = getTransform(rightHandAnchor, .indexFingerTip,rightIndexFingerTipModelEntity.transform)
-        rightMiddleFingerMetacarpalModelEntity.transform = getTransform(rightHandAnchor, .middleFingerMetacarpal,rightMiddleFingerMetacarpalModelEntity.transform)
-        rightMiddleFingerKnuckleModelEntity.transform = getTransform(rightHandAnchor, .middleFingerKnuckle,rightMiddleFingerKnuckleModelEntity.transform)
-        rightMiddleFingerIntermediateBaseModelEntity.transform = getTransform(rightHandAnchor, .middleFingerIntermediateBase,rightMiddleFingerIntermediateBaseModelEntity.transform)
-        rightMiddleFingerIntermediateTipModelEntity.transform = getTransform(rightHandAnchor, .middleFingerIntermediateTip, rightMiddleFingerIntermediateTipModelEntity.transform)
         rightMiddleFingerTipModelEntity.transform = getTransform(rightHandAnchor, .middleFingerTip,rightMiddleFingerTipModelEntity.transform)
-        rightRingFingerMetacarpalModelEntity.transform = getTransform(rightHandAnchor, .ringFingerMetacarpal,rightRingFingerMetacarpalModelEntity.transform)
-        rightRingFingerKnuckleModelEntity.transform = getTransform(rightHandAnchor, .ringFingerKnuckle,rightRingFingerKnuckleModelEntity.transform)
-        rightRingFingerIntermediateBaseModelEntity.transform = getTransform(rightHandAnchor, .ringFingerIntermediateBase,rightRingFingerIntermediateBaseModelEntity.transform)
-        rightRingFingerIntermediateTipModelEntity.transform = getTransform(rightHandAnchor, .ringFingerIntermediateTip, rightRingFingerIntermediateTipModelEntity.transform)
         rightRingFingerTipModelEntity.transform = getTransform(rightHandAnchor, .ringFingerTip,rightRingFingerTipModelEntity.transform)
-        rightLittleFingerMetacarpalModelEntity.transform = getTransform(rightHandAnchor, .littleFingerMetacarpal,rightLittleFingerMetacarpalModelEntity.transform)
-        rightLittleFingerKnuckleModelEntity.transform = getTransform(rightHandAnchor, .littleFingerKnuckle, rightLittleFingerKnuckleModelEntity.transform)
-        rightLittleFingerIntermediateBaseModelEntity.transform = getTransform(rightHandAnchor, .littleFingerIntermediateBase, rightLittleFingerIntermediateBaseModelEntity.transform)
-        rightLittleFingerIntermediateTipModelEntity.transform = getTransform(rightHandAnchor, .littleFingerIntermediateTip, rightLittleFingerIntermediateTipModelEntity.transform)
         rightLittleFingerTipModelEntity.transform = getTransform(rightHandAnchor, .littleFingerTip, rightLittleFingerTipModelEntity.transform)
-        rightForearmWristModelEntity.transform = getTransform(rightHandAnchor, .forearmWrist, rightForearmWristModelEntity.transform)
-        rightForearmArmModelEntity.transform = getTransform(rightHandAnchor, .forearmArm, rightForearmArmModelEntity.transform)
     }
     
     func getTransform(_ anchor: HandAnchor, _ jointName: HandSkeleton.JointName, _ beforeTransform: Transform) -> Transform {
@@ -517,11 +350,29 @@ struct HandTrackingView: View {
         return beforeTransform
     }
     
-//    func lowPassFilter(currentValue: Float, previousValue: Float, alpha: Float) -> Float {
-//        return alpha * currentValue + (1 - alpha) * previousValue
-//    }
     func movingAverageFilter(values: [Float], windowSize: Int) -> Float {
         let sum = values.suffix(windowSize).reduce(0, +)
         return sum / Float(windowSize)
+    }
+    
+    static func fingerTipEntity(_ visible: Bool) -> Entity {
+        if visible {
+            var entity = ModelEntity(
+                mesh: .generateSphere(radius: 0.01),
+                materials: [SimpleMaterial(color: .cyan, isMetallic: false)])
+            entity.generateCollisionShapes(recursive: true)
+            return entity
+        }
+        
+        var entity = Entity()
+        entity.components.set(CollisionComponent(shapes: [.generateSphere(radius: 0.01)], isStatic: false))
+        return entity
+    }
+    
+    static func emissiveMaterial() -> PhysicallyBasedMaterial {
+        var emissiveMaterial = PhysicallyBasedMaterial()
+        emissiveMaterial.emissiveIntensity = 1.0
+        emissiveMaterial.emissiveColor = .init(color: .green)
+        return emissiveMaterial
     }
 }

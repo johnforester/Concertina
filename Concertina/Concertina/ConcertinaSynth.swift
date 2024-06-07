@@ -17,7 +17,6 @@ import CDunneAudioKit
 class ConcertinaSynth: ObservableObject {
     let engine = AudioEngine()
     let sampler = Sampler()
-
     
     func noteOn(note: MIDINoteNumber) {
         sampler.play(noteNumber: note, velocity: 127)
@@ -25,10 +24,6 @@ class ConcertinaSynth: ObservableObject {
     
     func noteOff(note: MIDINoteNumber) {
         sampler.stop(noteNumber: note)
-    }
-    
-    @Published var isPlaying: Bool = false {
-        didSet { isPlaying ? sampler.start() : sampler.stop() }
     }
         
     let wavFilesAndMIDINotes: [(audioName: String, midiNoteNumber: Int32, frequency: Float)] = [
